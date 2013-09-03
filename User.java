@@ -43,4 +43,6 @@ public interface User{
 	form percentage description: percentage)
 	*/
 	public void displayTable(String[] out);
+	
+	public void printResults(String[] out);
 }
