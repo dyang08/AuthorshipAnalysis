@@ -1,6 +1,6 @@
 /**
 	This interface is used as the base for any possible I/O classes for the 
-	AuthorshipAnalysis project.
+	AuthorshipAnalysis project. 
 	
 	@version 9-2-13
 */
@@ -34,4 +34,13 @@ public interface User{
 	second would be file location. 
 	*/
 	public String[] getKnownBook();
+	/**
+	Used to display all the metrics of a author. 
+	
+	added after seeing the initial GUI Design ideas
+	
+	@param A array of Strings to be displayed in the table. (Most likely in the
+	form percentage description: percentage)
+	*/
+	public void displayTable(String[] out);
 }
