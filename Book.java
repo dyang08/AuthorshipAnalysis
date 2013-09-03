@@ -2,7 +2,7 @@
 public class Book {
 	
 	private String name="", author="";
-	private int avgWordLength=-1,avgSentenceLength=-1,wordToSentenceRatio=-1,letterFreq=-1,
+	private double avgWordLength=-1,avgSentenceLength=-1,wordToSentenceRatio=-1,letterFreq=-1,
 			letterPairFreq=-1,vocabRichness=-1,freqNoun=-1,freqVerb=-1,freqAdjective=-1,adjectiveToNounRatio=-1,
 			lexicalDensity=-1,wordLength=-1;
 	
@@ -18,76 +18,76 @@ public class Book {
 	public void setAuthor(String value){
 		this.author = value;
 	}
-	public int getAvgSentenceLength(){
+	public double getAvgSentenceLength(){
 		return this.avgSentenceLength;
 	}
-	public void setAvgSentenceLength(int value){
+	public void setAvgSentenceLength(double value){
 		this.avgSentenceLength = value;
 	}
-	public int getWordToSentenceRatio(){
+	public double getWordToSentenceRatio(){
 		return this.wordToSentenceRatio;
 	}
-	public void setWordToSentenceRatio(int value){
+	public void setWordToSentenceRatio(double value){
 		this.wordToSentenceRatio = value;
 	}
-	public int getAvgWordLength(){
+	public double getAvgWordLength(){
 		return this.avgWordLength;
 	}
-	public void setAvgWordLength(int value){
+	public void setAvgWordLength(double value){
 		this.avgWordLength = value;
 	}
-	public int getLetterFreq(){
+	public double getLetterFreq(){
 		return this.letterFreq;
 	}
-	public void setLetterFreq(int value){
+	public void setLetterFreq(double value){
 		this.letterFreq = value;
 	}
-	public int getLetterPairFreq(){
+	public double getLetterPairFreq(){
 		return this.letterPairFreq;
 	}
-	public void setLetterPairFreq(int value){
+	public void setLetterPairFreq(double value){
 		this.letterPairFreq = value;
 	}
-	public int getVocabRichness(){
+	public double getVocabRichness(){
 		return this.vocabRichness;
 	}
-	public void setVocabRichness(int value){
+	public void setVocabRichness(double value){
 		this.vocabRichness = value;
 	}
-	public int getFreqNoun(){
+	public double getFreqNoun(){
 		return this.freqNoun;
 	}
-	public void setFreqNoun(int value){
+	public void setFreqNoun(double value){
 		this.freqNoun = value;
 	}
-	public int getFreqVerb(){
+	public double getFreqVerb(){
 		return this.freqVerb;
 	}
-	public void setFreqVerb(int value){
+	public void setFreqVerb(double value){
 		this.freqVerb = value;
 	}
-	public int getFreqAdjective(){
+	public double getFreqAdjective(){
 		return this.freqAdjective;
 	}
-	public void setFreqAdjective(int value){
+	public void setFreqAdjective(double value){
 		this.freqAdjective = value;
 	}
-	public int getAdjectiveToNounRatio(){
+	public double getAdjectiveToNounRatio(){
 		return this.adjectiveToNounRatio;
 	}
-	public void setAdjectiveToNounRatio(int value){
+	public void setAdjectiveToNounRatio(double value){
 		this.adjectiveToNounRatio = value;
 	}
-	public int getLexicalDensity(){
+	public double getLexicalDensity(){
 		return this.lexicalDensity;
 	}
-	public void setLexicalDensity(int value){
+	public void setLexicalDensity(double value){
 		this.lexicalDensity = value;
 	}
-	public int getWordLength(){
+	public double getWordLength(){
 		return this.wordLength;
 	}
-	public void setWordLength(int value){
+	public void setWordLength(double value){
 		this.wordLength = value;
 	}
 	
