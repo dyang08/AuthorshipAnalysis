@@ -128,7 +128,7 @@ public final class SqlConnection {
                 pstat.setDouble(4, /*averageWordLength*/);
                 pstat.setDouble(5, /*averageSentenceLegth*/);
                 pstat.setDouble(6, /*ratioWordSentence*/);
-                pstat.setDouble(7, /*relLetterFreq*/
+                pstat.setDouble(7, /*relLetterFreq*/);
                 pstat.setDouble(8, /*relLetterPairFreq*/);
                 pstat.setDouble(9, /*vocabRichness*/);
                 pstat.setDouble(10, /*freqNoun*/);
@@ -152,7 +152,7 @@ public final class SqlConnection {
             }
         }
     }
-    
+
     public void updateBookMetrics(String word) {
         PreparedStatement pstat = null;
         String sql = "UPDATE book_metrics b SET  b.name = ?, b.author = ?, "
@@ -170,7 +170,7 @@ public final class SqlConnection {
                 pstat.setDouble(3, /*averageWordLength*/);
                 pstat.setDouble(4, /*averageSentenceLegth*/);
                 pstat.setDouble(5, /*ratioWordSentence*/);
-                pstat.setDouble(6, /*relLetterFreq*/
+                pstat.setDouble(6, /*relLetterFreq*/);
                 pstat.setDouble(7, /*relLetterPairFreq*/);
                 pstat.setDouble(8, /*vocabRichness*/);
                 pstat.setDouble(9, /*freqNoun*/);
@@ -196,7 +196,8 @@ public final class SqlConnection {
         }
     }
 
-    public void getBookMetrics(String author) {
+    public AuthorMetrics getAuthorMetrics(String author) {
+        AuthorMetrics am = new AuthorMetrics();
         PreparedStatement pstat = null;
         ResultSet rs = null;
         String sql = "SELECT AVG(b.average_word_length), "
@@ -223,11 +224,11 @@ public final class SqlConnection {
                 e.printStackTrace();
             }
         }
-        
-        if(rs != null){
+
+        if (rs != null) {
             try {
-                double averageWordLegth = rs.getDouble(1);
-                double averageSentenceLegth = rs.getDouble(2);
+                am.setAvgWordLength(rs.getDouble(1));
+                am.setAvgSentenceLength(rs.getDouble(2));
                 double ratioWordSentence = rs.getDouble(3);
                 double relLetterFreq = rs.getDouble(4);
                 double relLetterPairFreq = rs.getDouble(5);
@@ -241,5 +242,8 @@ public final class SqlConnection {
                 Logger.getLogger(SqlConnection.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+        return am;
     }
+
 }
