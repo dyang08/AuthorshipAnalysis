@@ -230,7 +230,7 @@ public final class Book {
 
                 for (int i = 0; i < word.length(); i++) {
 
-                    int charValue = Character.getNumericValue(word.charAt(i));
+                    int charValue = Character.getNumericValue(word.charAt(i)) - 10;
 
                     if (charValue >= 10 && charValue <= 35) {
 
@@ -542,8 +542,11 @@ public final class Book {
         if (adjectiveToNounRatio != -1) {
             return this.adjectiveToNounRatio;
         } else {
-
-            this.adjectiveToNounRatio = numAdjectives / numNouns;
+            if (numNouns != 0) {
+                this.adjectiveToNounRatio = numAdjectives / numNouns;
+            } else {
+                this.adjectiveToNounRatio = 0;
+            }
         }
         return this.adjectiveToNounRatio;
     }
