@@ -1,116 +1,234 @@
 package AuthorshipAnalysis;
 
+import java.util.HashMap;
+
 public class AuthorMetrics {
 
     private String author = "";
-    private double avgWordLength = -1, avgSentenceLength = -1,
-            wordToSentenceRatio = -1, letterFreq = -1,
-            letterPairFreq = -1, vocabRichness = -1, freqNoun = -1, 
-            freqVerb = -1, freqAdjective = -1, adjectiveToNounRatio = -1,
-            lexicalDensity = -1, wordLength = -1;
+  
+    private Book book = new Book();
 
+    /**
+     *
+     * @param bookAuthor
+     */
+    public void setBookAuthor(String bookAuthor) {
+        book.setAuthor(bookAuthor);
+    }
+
+    /**
+     *
+     * @return bookTitile
+     */
+    public String getBookTitile() {
+        return book.getBookTitile();
+    }
+
+    /**
+     *
+     * @param bookTitile
+     */
+    public void setBookTitile(String bookTitile) {
+        book.setBookTitile(bookTitile);
+    }
+
+    /**
+     *
+     * @return bookAuthor
+     */
     public String getAuthor() {
-        return this.author;
+        return book.getAuthor();
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setAuthor(String value) {
-        this.author = value;
+        this.book.setAuthor(value);
     }
 
+    /**
+     *
+     * @return averageSentenceLength
+     */
     public double getAvgSentenceLength() {
-        return this.avgSentenceLength;
+        return book.averageSentenceLength();
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setAvgSentenceLength(double value) {
-        this.avgSentenceLength = value;
+        book.setAvgSentenceLength(value);
     }
 
+    /**
+     *
+     * @return ratioWordToSentenceLength
+     */
     public double getWordToSentenceRatio() {
-        return this.wordToSentenceRatio;
+        return book.ratioWordToSentenceLength();
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setWordToSentenceRatio(double value) {
-        this.wordToSentenceRatio = value;
+        book.setWordToSentenceRatio(value);
     }
 
-    public double getAvgWordLength() {
-        return this.avgWordLength;
+    /**
+     *
+     * @return distributionOfWordLengths
+     */
+    public HashMap<Integer, Double> getAvgWordLength() {
+        return book.distributionOfWordLengths();
     }
 
-    public void setAvgWordLength(double value) {
-        this.avgWordLength = value;
+    /**
+     *
+     * @param value
+     */
+    public void setAvgWordLength(HashMap<Integer, Double> value) {
+        book.setAvgWordLength(value);
     }
 
-    public double getLetterFreq() {
-        return this.letterFreq;
+    /**
+     *
+     * @return relativeLetterFrequency[]:Double
+     */
+    public double[] getLetterFreq() {
+        return book.relativeLetterFrequency();
     }
 
-    public void setLetterFreq(double value) {
-        this.letterFreq = value;
+    /**
+     *
+     * @param value
+     */
+    public void setLetterFreq(double[] value) {
+        book.setLetterFreq(value);
     }
 
-    public double getLetterPairFreq() {
-        return this.letterPairFreq;
+    /**
+     *
+     * @return relativeLetterPairFrequencies
+     */
+    public HashMap<String, Double> getLetterPairFreq() {
+        return book.relativeLetterPairFrequencies();
     }
 
-    public void setLetterPairFreq(double value) {
-        this.letterPairFreq = value;
+    /**
+     *
+     * @param value
+     */
+    public void setLetterPairFreq(HashMap<String, Double> value) {
+        book.setLetterPairFreq(value);
     }
 
+    /**
+     *
+     * @return vocabularyRichness()
+     */
     public double getVocabRichness() {
-        return this.vocabRichness;
+        return book.vocabularyRichness();
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setVocabRichness(double value) {
-        this.vocabRichness = value;
+        book.setVocabRichness(value);
     }
 
+    /**
+     *
+     * @return frequencyOfNounUsage()
+     */
     public double getFreqNoun() {
-        return this.freqNoun;
+        return book.frequencyOfNounUsage();
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setFreqNoun(double value) {
-        this.freqNoun = value;
+      book.setFreqNoun(value);
     }
 
+    /**
+     *
+     * @return frequencyOfVerbs()
+     */
     public double getFreqVerb() {
-        return this.freqVerb;
+        return book.frequencyOfVerbs();
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setFreqVerb(double value) {
-        this.freqVerb = value;
+        book.setFreqVerb(value);
     }
 
+    /**
+     *
+     * @return frequencyOfAdjectiveUsage
+     */
     public double getFreqAdjective() {
-        return this.freqAdjective;
+        return book.frequencyOfAdjectiveUsage();
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setFreqAdjective(double value) {
-        this.freqAdjective = value;
+        book.setFreqAdjective(value);
     }
 
+    /**
+     *
+     * @return ratioAdjectivesToNounUsage()
+     */
     public double getAdjectiveToNounRatio() {
-        return this.adjectiveToNounRatio;
+        return book.ratioAdjectivesToNounUsage();
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setAdjectiveToNounRatio(double value) {
-        this.adjectiveToNounRatio = value;
+       book.setAdjectiveToNounRatio(value);
     }
 
+    /**
+     *
+     * @return simpleLexicalDensity()
+     */
     public double getLexicalDensity() {
-        return this.lexicalDensity;
+        return book.simpleLexicalDensity();
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setLexicalDensity(double value) {
-        this.lexicalDensity = value;
+      book.setLexicalDensity(value);
     }
 
     public double getWordLength() {
-        return this.wordLength;
+        return book.getWordLength();
     }
 
     public void setWordLength(double value) {
-        this.wordLength = value;
+        book.setWordLength(value);
     }
-
 }
