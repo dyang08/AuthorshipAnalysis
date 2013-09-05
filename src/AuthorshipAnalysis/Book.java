@@ -93,7 +93,7 @@ public final class Book {
     Book(String author, String title, String fileName) throws FileNotFoundException, IOException {
         bookAuthor = author;
         bookTitle = title;
-        bookText = fileName;
+        bookText = textFile.getString(fileName);
         numNouns = 0;
         numAdjectives = 0;
         numVerbs = 0;
