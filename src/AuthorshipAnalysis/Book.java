@@ -18,8 +18,9 @@ public final class Book {
     // need to work out a distance formula to do the metrics for comparing 
     // authors 
 
+    private int id;
     private String bookAuthor;
-    private String bookTitile;
+    private String bookTitle;
     private String bookText;
     private int numNouns;
     private int numAdjectives;
@@ -34,17 +35,17 @@ public final class Book {
     private double freqAdjective = -1;
     private double adjectiveToNounRatio = -1;
     private double lexicalDensity = -1;
-    private double[] relativeLetterFrequency = null;
+    private double[] relativeLetterFrequency;
     private HashMap<String, Double> relativeLetterPairFrequencies;
-    private HashMap<Integer, Double> distributionOfWordLengths = null;
-    private HashMap<Integer, Double> wordLength = null;
+    private HashMap<Integer, Double> distributionOfWordLengths;
+    private HashMap<Integer, Double> wordLength;
     private StringTokenizer st;
-    private getTextFromFile textFile = new getTextFromFile();
+    private GetTextFromFile textFile = new GetTextFromFile();
 
     Book() {
 
         bookAuthor = null;
-        bookTitile = null;
+        bookTitle = null;
         bookText = null;
         numNouns = 0;
         numAdjectives = 0;
@@ -68,7 +69,7 @@ public final class Book {
     Book(String booktext) {
 
         bookAuthor = null;
-        bookTitile = null;
+        bookTitle = null;
         bookText = booktext;
         numNouns = 0;
         numAdjectives = 0;
@@ -91,8 +92,8 @@ public final class Book {
 
     Book(String author, String title, String fileName) throws FileNotFoundException, IOException {
         bookAuthor = author;
-        bookTitile = title;
-        bookText = textFile.getString(fileName);
+        bookTitle = title;
+        bookText = fileName;
         numNouns = 0;
         numAdjectives = 0;
         numVerbs = 0;
@@ -110,6 +111,22 @@ public final class Book {
         adjectiveToNounRatio = ratioAdjectivesToNounUsage();
         lexicalDensity = simpleLexicalDensity();
         wordLength = distributionOfWordLengths();
+    }
+    
+    /**
+     * get the id
+     * @return id
+     */
+    public int getId(){
+        return this.id;
+    }
+    
+    /**
+     * set the id
+     * @param id the id of the book in the database
+     */
+    public void setId(int id){
+        this.id=id;
     }
 
     /**
@@ -234,7 +251,7 @@ public final class Book {
 
                     if (charValue >= 10 && charValue <= 35) {
 
-                        frequencies[charValue]++;
+                        frequencies[charValue-10]++;
                         cumulativeSum++;
                     }
                 }
@@ -569,21 +586,21 @@ public final class Book {
 
     // *******************Getters and Setters************************* 
     /**
-     * setBookTitile
+     * setBookTitle
      *
-     * @param bookTitile :String
+     * @param bookTitle :String
      */
-    public void setBookTitile(String bookTitile) {
-        this.bookTitile = bookTitile;
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
     }
 
     /**
-     * getBookTitile
+     * getBookTitle
      *
-     * @return bookTitile :String
+     * @return bookTitle :String
      */
-    public String getBookTitile() {
-        return this.bookTitile;
+    public String getBookTitle() {
+        return this.bookTitle;
     }
 
     /**

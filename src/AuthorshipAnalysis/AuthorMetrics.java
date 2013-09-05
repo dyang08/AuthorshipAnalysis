@@ -4,52 +4,36 @@ import java.util.HashMap;
 
 public class AuthorMetrics {
 
-    private String author = "";
-    private Book book = new Book();
+    private String author;
+    private Double avgWordLength;
+    private Double avgSentenceLength;
+    private Double wordToSentenceRatio;
+    private Double vocabRichness;
+    private Double freqNoun;
+    private Double freqVerb;
+    private Double freqAdjective;
+    private Double adjectiveToNounRatio;
+    private Double lexicalDensity;
+    private HashMap<Integer, Double> distributionOfWordLengths;
+    private Double[] relativeLetterFreq;
+    private HashMap<String, Double> relativeLetterPairFrequencies;
 
     /**
      * setBookAuthor
      *
-     * @param bookAuthor:String
+     * @param author:String
      */
-    public void setBookAuthor(String bookAuthor) {
-        book.setAuthor(bookAuthor);
+    public void setAuthor(String author) {
+        this.author = author;
     }
-
-    /**
-     * getBookTitile
-     *
-     * @return bookTitile:String
-     */
-    public String getBookTitile() {
-        return book.getBookTitile();
-    }
-
-    /**
-     * setBookTitile
-     *
-     * @param bookTitile:String
-     */
-    public void setBookTitile(String bookTitile) {
-        book.setBookTitile(bookTitile);
-    }
-
+    
     /**
      * getAuthor
      *
      * @return bookAuthor:String
      */
     public String getAuthor() {
-        return book.getAuthor();
-    }
-
-    /**
-     * setAuthor
-     *
-     * @param value:String
-     */
-    public void setAuthor(String value) {
-        this.book.setAuthor(value);
+        return this.author;
     }
 
     /**
@@ -57,8 +41,8 @@ public class AuthorMetrics {
      *
      * @return averageSentenceLength :double
      */
-    public double getAvgSentenceLength() {
-        return book.averageSentenceLength();
+    public Double getAvgSentenceLength() {
+        return this.avgSentenceLength;
     }
 
     /**
@@ -66,8 +50,8 @@ public class AuthorMetrics {
      *
      * @param value :double
      */
-    public void setAvgSentenceLength(double value) {
-        book.setAvgSentenceLength(value);
+    public void setAvgSentenceLength(Double value) {
+        this.avgSentenceLength = value;
     }
 
     /**
@@ -75,8 +59,8 @@ public class AuthorMetrics {
      *
      * @return ratioWordToSentenceLength :double
      */
-    public double getWordToSentenceRatio() {
-        return book.ratioWordToSentenceLength();
+    public Double getWordToSentenceRatio() {
+        return this.wordToSentenceRatio;
     }
 
     /**
@@ -84,62 +68,62 @@ public class AuthorMetrics {
      *
      * @param value :double
      */
-    public void setWordToSentenceRatio(double value) {
-        book.setWordToSentenceRatio(value);
+    public void setWordToSentenceRatio(Double value) {
+        this.wordToSentenceRatio=value;
     }
 
     /**
-     * getAvgWordLength
+     * getDistributionOfWordLengths
      *
      * @return distributionOfWordLengths:HashMap<Integer, Double>
      */
-    public HashMap<Integer, Double> getAvgWordLength() {
-        return book.distributionOfWordLengths();
+    public HashMap<Integer, Double> getDistributionOfWordLengths() {
+        return this.distributionOfWordLengths;
     }
 
     /**
-     * setAvgWordLength
+     * setDistributionOfWordLengths
      *
      * @param value:HashMap<Integer, Double>
      */
-    public void setAvgWordLength(HashMap<Integer, Double> value) {
-        book.setAvgWordLength(value);
+    public void setDistributionOfWordLengths(HashMap<Integer, Double> value) {
+        this.distributionOfWordLengths=value;
     }
 
     /**
-     * getLetterFreq
+     * getRelativeLetterFreq
      *
      * @return relativeLetterFrequency[]:Double
      */
-    public double[] getLetterFreq() {
-        return book.relativeLetterFrequency();
+    public Double[] getRelativeLetterFreq() {
+        return this.relativeLetterFreq;
     }
 
     /**
-     * setLetterFreq
+     * setRelativeLetterFreq
      *
      * @param value :double[]
      */
-    public void setLetterFreq(double[] value) {
-        book.setLetterFreq(value);
+    public void setRelativeLetterFreq(Double[] value) {
+        this.relativeLetterFreq = value;
     }
 
     /**
-     * getLetterPairFreq
+     * getRelativeLetterPairFrequencies
      *
      * @return relativeLetterPairFrequencies:HashMap<String, Double>
      */
-    public HashMap<String, Double> getLetterPairFreq() {
-        return book.relativeLetterPairFrequencies();
+    public HashMap<String, Double> getRelativeLetterPairFrequencies() {
+        return this.relativeLetterPairFrequencies;
     }
 
     /**
-     * setLetterPairFreq
+     * setRelativeLetterPairFrequencies
      *
      * @param value:HashMap<String, Double>
      */
-    public void setLetterPairFreq(HashMap<String, Double> value) {
-        book.setLetterPairFreq(value);
+    public void setRelativeLetterPairFrequencies(HashMap<String, Double> value) {
+        this.relativeLetterPairFrequencies=value;
     }
 
     /**
@@ -147,8 +131,8 @@ public class AuthorMetrics {
      *
      * @return vocabularyRichness() :double
      */
-    public double getVocabRichness() {
-        return book.vocabularyRichness();
+    public Double getVocabRichness() {
+        return this.vocabRichness;
     }
 
     /**
@@ -156,8 +140,8 @@ public class AuthorMetrics {
      *
      * @param value :double
      */
-    public void setVocabRichness(double value) {
-        book.setVocabRichness(value);
+    public void setVocabRichness(Double value) {
+        this.vocabRichness=value;
     }
 
     /**
@@ -165,8 +149,8 @@ public class AuthorMetrics {
      *
      * @return frequencyOfNounUsage() :double
      */
-    public double getFreqNoun() {
-        return book.frequencyOfNounUsage();
+    public Double getFreqNoun() {
+        return this.freqNoun;
     }
 
     /**
@@ -174,8 +158,8 @@ public class AuthorMetrics {
      *
      * @param value :double
      */
-    public void setFreqNoun(double value) {
-        book.setFreqNoun(value);
+    public void setFreqNoun(Double value) {
+        this.freqNoun=value;
     }
 
     /**
@@ -183,8 +167,8 @@ public class AuthorMetrics {
      *
      * @return frequencyOfVerbs() :double
      */
-    public double getFreqVerb() {
-        return book.frequencyOfVerbs();
+    public Double getFreqVerb() {
+        return this.freqVerb;
     }
 
     /**
@@ -192,8 +176,8 @@ public class AuthorMetrics {
      *
      * @param value :double
      */
-    public void setFreqVerb(double value) {
-        book.setFreqVerb(value);
+    public void setFreqVerb(Double value) {
+        this.freqVerb=value;
     }
 
     /**
@@ -201,8 +185,8 @@ public class AuthorMetrics {
      *
      * @return frequencyOfAdjectiveUsage() :double
      */
-    public double getFreqAdjective() {
-        return book.frequencyOfAdjectiveUsage();
+    public Double getFreqAdjective() {
+        return this.freqAdjective;
     }
 
     /**
@@ -210,8 +194,8 @@ public class AuthorMetrics {
      *
      * @param value :double
      */
-    public void setFreqAdjective(double value) {
-        book.setFreqAdjective(value);
+    public void setFreqAdjective(Double value) {
+        this.freqAdjective=value;
     }
 
     /**
@@ -219,8 +203,8 @@ public class AuthorMetrics {
      *
      * @return ratioAdjectivesToNounUsage() :double
      */
-    public double getAdjectiveToNounRatio() {
-        return book.ratioAdjectivesToNounUsage();
+    public Double getAdjectiveToNounRatio() {
+        return this.adjectiveToNounRatio;
     }
 
     /**
@@ -228,8 +212,8 @@ public class AuthorMetrics {
      *
      * @param value :double
      */
-    public void setAdjectiveToNounRatio(double value) {
-        book.setAdjectiveToNounRatio(value);
+    public void setAdjectiveToNounRatio(Double value) {
+        this.adjectiveToNounRatio=value;
     }
 
     /**
@@ -237,8 +221,8 @@ public class AuthorMetrics {
      *
      * @return simpleLexicalDensity() :double
      */
-    public double getLexicalDensity() {
-        return book.simpleLexicalDensity();
+    public Double getLexicalDensity() {
+        return this.lexicalDensity;
     }
 
     /**
@@ -246,25 +230,25 @@ public class AuthorMetrics {
      *
      * @param value:double
      */
-    public void setLexicalDensity(double value) {
-        book.setLexicalDensity(value);
+    public void setLexicalDensity(Double value) {
+        this.lexicalDensity=value;
     }
 
     /**
-     * getWordLength
+     * getAvgWordLength
      *
      * @return avgWordLength:double
      */
-    public double getWordLength() {
-        return book.getWordLength();
+    public Double getAvgWordLength() {
+        return this.avgWordLength;
     }
 
     /**
-     * setWordLength
+     * setAvgWordLength
      *
      * @param value :double
      */
-    public void setWordLength(double value) {
-        book.setWordLength(value);
+    public void setAvgWordLength(Double value) {
+        this.avgWordLength=value;
     }
 }
