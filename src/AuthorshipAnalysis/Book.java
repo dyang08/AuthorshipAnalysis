@@ -42,30 +42,6 @@ public final class Book {
     private StringTokenizer st;
     private GetTextFromFile textFile = new GetTextFromFile();
 
-    Book() {
-
-        bookAuthor = null;
-        bookTitle = null;
-        bookText = null;
-        numNouns = 0;
-        numAdjectives = 0;
-        numVerbs = 0;
-        totalWords = 0;
-        avgWordLength = -1;
-        averageSentenceLength = -1;
-        ratioWordToSentenceLength = -1;
-        relativeLetterFrequency = null;
-        relativeLetterPairFrequencies = null;
-        distributionOfWordLengths = null;
-        vocabRichness = -1;
-        freqNoun = -1;
-        freqVerb = -1;
-        freqAdjective = -1;
-        adjectiveToNounRatio = -1;
-        lexicalDensity = -1;
-        wordLength = null;
-    }
-
     Book(String booktext) {
 
         bookAuthor = null;
@@ -111,22 +87,6 @@ public final class Book {
         adjectiveToNounRatio = ratioAdjectivesToNounUsage();
         lexicalDensity = simpleLexicalDensity();
         wordLength = distributionOfWordLengths();
-    }
-    
-    /**
-     * get the id
-     * @return id
-     */
-    public int getId(){
-        return this.id;
-    }
-    
-    /**
-     * set the id
-     * @param id the id of the book in the database
-     */
-    public void setId(int id){
-        this.id=id;
     }
 
     /**
@@ -359,9 +319,7 @@ public final class Book {
                 } else {
 
                     words.put(word, 1);
-
                 }
-
             }
 
             int uniqueWords = 0;
@@ -412,9 +370,7 @@ public final class Book {
                 } else {
 
                     distributionOfWordLengths.put(word.length(), 1.0);
-
                 }
-
             }
 
             for (Integer key : distributionOfWordLengths.keySet()) {
@@ -587,16 +543,7 @@ public final class Book {
         return this.lexicalDensity;
     }
 
-    // *******************Getters and Setters************************* 
-    /**
-     * setBookTitle
-     *
-     * @param bookTitle :String
-     */
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
-    }
-
+    // *******************Getters ************************* 
     /**
      * getBookTitle
      *
@@ -616,123 +563,6 @@ public final class Book {
     }
 
     /**
-     * setBookAuthor
-     *
-     * @param bookAuthor:String
-     */
-    public void setBookAuthor(String bookAuthor) {
-        this.bookAuthor = bookAuthor;
-    }
-
-    /**
-     * setAuthor
-     *
-     * @param value:String
-     */
-    public void setAuthor(String value) {
-        this.bookAuthor = value;
-    }
-
-    /**
-     * setAvgSentenceLength
-     *
-     * @param value:double
-     */
-    public void setAvgSentenceLength(double value) {
-        this.averageSentenceLength = value;
-    }
-
-    /**
-     * setWordToSentenceRatio
-     *
-     * @param value :double
-     */
-    public void setWordToSentenceRatio(double value) {
-        this.ratioWordToSentenceLength = value;
-    }
-
-    /**
-     * setAvgWordLength
-     *
-     * @param value :HashMap<Integer, Double>
-     */
-    public void setAvgWordLength(HashMap<Integer, Double> value) {
-        this.distributionOfWordLengths = value;
-    }
-
-    /**
-     * setLetterFreq
-     *
-     * @param value:double[]
-     */
-    public void setLetterFreq(double[] value) {
-        this.relativeLetterFrequency = value;
-    }
-
-    /**
-     * setLetterPairFreq
-     *
-     * @param value :HashMap<String, Double>
-     */
-    public void setLetterPairFreq(HashMap<String, Double> value) {
-        this.relativeLetterPairFrequencies = value;
-    }
-
-    /**
-     * setVocabRichness
-     *
-     * @param value:double
-     */
-    public void setVocabRichness(double value) {
-        this.vocabRichness = value;
-    }
-
-    /**
-     * setFreqNoun
-     *
-     * @param value:double
-     */
-    public void setFreqNoun(double value) {
-        this.freqNoun = value;
-    }
-
-    /**
-     * setFreqVerb
-     *
-     * @param value:double
-     */
-    public void setFreqVerb(double value) {
-        this.freqVerb = value;
-    }
-
-    /**
-     * setFreqAdjective
-     *
-     * @param value:double
-     */
-    public void setFreqAdjective(double value) {
-        this.freqAdjective = value;
-    }
-
-    /**
-     * setAdjectiveToNounRatio
-     *
-     * @param value:double
-     */
-    public void setAdjectiveToNounRatio(double value) {
-        this.adjectiveToNounRatio = value;
-    }
-
-    /**
-     * setLexicalDensity
-     *
-     * @param value:double
-     */
-    public void setLexicalDensity(double value) {
-        this.lexicalDensity = value;
-    }
-
-    /**
      * getWordLength
      *
      * @return avgWordLength:double
@@ -742,11 +572,20 @@ public final class Book {
     }
 
     /**
-     * setWordLength
+     * get the id
      *
-     * @param value :double
+     * @return id
      */
-    public void setWordLength(double value) {
-        this.avgWordLength = value;
+    public int getId() {
+        return this.id;
+    }
+
+    /**
+     * setId
+     *
+     * @param aInt
+     */
+    void setId(int aInt) {
+        this.id = aInt;
     }
 }//end Book Class
