@@ -249,9 +249,9 @@ public final class Book {
 
                     int charValue = Character.getNumericValue(word.charAt(i)) - 10;
 
-                    if (charValue >= 10 && charValue <= 35) {
+                    if (charValue >= 0 && charValue <= 26) {
 
-                        frequencies[charValue-10]++;
+                        frequencies[charValue]++;
                         cumulativeSum++;
                     }
                 }
