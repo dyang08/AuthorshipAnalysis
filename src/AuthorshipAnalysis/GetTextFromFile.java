@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,7 +31,7 @@ public class GetTextFromFile {
         if (tempEpub.equals("epub") || temptxt.equals("zip")) {
 
             bookString = getStringFromEpub(fileName);
-        } else if (temptxt.equals("zip")) {
+        } else if (temptxt.equals("txt")) {
             bookString = getTextString(fileName);
         }
 
@@ -37,13 +39,19 @@ public class GetTextFromFile {
 
     }
 
-    private String getStringFromEpub(String filename) throws FileNotFoundException, IOException {
+    private String getStringFromEpub(String filename){
+        try {
+            String saveUnZippedFile = "myUnZippedFile";
+            fileList = unzip.unZipEpub(filename, saveUnZippedFile);
+            HTMLParser parser = new HTMLParser();
 
-        String saveUnZippedFile = "myUnZippedFile";
-        fileList = unzip.unZipEpub(filename, saveUnZippedFile);
-        HTMLParser parser = new HTMLParser();
-
-        return parser.HtmlParser(fileList);
+            return parser.HtmlParser(fileList);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GetTextFromFile.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GetTextFromFile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     /**
