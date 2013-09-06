@@ -121,7 +121,7 @@ public class GUI extends javax.swing.JFrame {
         
         @Override
         public int getRowCount() {
-            return 2;
+            return data.length;
         }
 
         @Override
@@ -148,6 +148,9 @@ public class GUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jFileChooser1 = new javax.swing.JFileChooser();
+        resultsPopup = new javax.swing.JFrame();
+        popupScrollPane = new javax.swing.JScrollPane();
+        popupTable = new javax.swing.JTable();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         authorKnown = new javax.swing.JCheckBox();
@@ -155,16 +158,16 @@ public class GUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        knownAuthorPane = new javax.swing.JPanel();
-        authorComboBox2 = new javax.swing.JComboBox();
-        bookComboBox2 = new javax.swing.JComboBox();
-        searchMetrics2 = new javax.swing.JButton();
         unknownAuthorPane = new javax.swing.JPanel();
         computeMetrix = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
+        knownAuthorPane = new javax.swing.JPanel();
+        authorComboBox2 = new javax.swing.JComboBox();
+        bookComboBox2 = new javax.swing.JComboBox();
+        searchMetrics2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         authorComboBox = new javax.swing.JComboBox();
         bookComboBox = new javax.swing.JComboBox();
@@ -173,6 +176,38 @@ public class GUI extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+
+        resultsPopup.setName("popupResults");
+
+        popupTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2"
+            }
+        ));
+        popupScrollPane.setViewportView(popupTable);
+
+        org.jdesktop.layout.GroupLayout resultsPopupLayout = new org.jdesktop.layout.GroupLayout(resultsPopup.getContentPane());
+        resultsPopup.getContentPane().setLayout(resultsPopupLayout);
+        resultsPopupLayout.setHorizontalGroup(
+            resultsPopupLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(resultsPopupLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(popupScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        resultsPopupLayout.setVerticalGroup(
+            resultsPopupLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, resultsPopupLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(popupScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -199,6 +234,61 @@ public class GUI extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        computeMetrix.setText("Compute Metrics");
+
+        jButton3.setText("View Match Rankings");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setText("jTextField1");
+
+        jTextField2.setText("jTextField2");
+
+        saveButton.setText("Save to Author");
+
+        org.jdesktop.layout.GroupLayout unknownAuthorPaneLayout = new org.jdesktop.layout.GroupLayout(unknownAuthorPane);
+        unknownAuthorPane.setLayout(unknownAuthorPaneLayout);
+        unknownAuthorPaneLayout.setHorizontalGroup(
+            unknownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(unknownAuthorPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(unknownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(unknownAuthorPaneLayout.createSequentialGroup()
+                        .add(jTextField2)
+                        .addContainerGap())
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, unknownAuthorPaneLayout.createSequentialGroup()
+                        .add(0, 84, Short.MAX_VALUE)
+                        .add(unknownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.CENTER)
+                            .add(jButton3)
+                            .add(computeMetrix)
+                            .add(saveButton))
+                        .add(83, 83, 83))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, unknownAuthorPaneLayout.createSequentialGroup()
+                        .add(jTextField1)
+                        .addContainerGap())))
+        );
+        unknownAuthorPaneLayout.setVerticalGroup(
+            unknownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(unknownAuthorPaneLayout.createSequentialGroup()
+                .add(17, 17, 17)
+                .add(computeMetrix)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jButton3)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
+                .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(saveButton)
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
+
+        unknownAuthorPane.setBounds(0, 0, 350, 260);
+        jLayeredPane1.add(unknownAuthorPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         authorComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Author", "----------" }));
 
@@ -231,61 +321,11 @@ public class GUI extends javax.swing.JFrame {
                 .add(bookComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(42, 42, 42)
                 .add(searchMetrics2)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         knownAuthorPane.setBounds(0, 0, 350, 270);
         jLayeredPane1.add(knownAuthorPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        computeMetrix.setText("Compute Metrics");
-
-        jButton3.setText("View Match Rankings");
-
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
-
-        saveButton.setText("Save to Author");
-
-        org.jdesktop.layout.GroupLayout unknownAuthorPaneLayout = new org.jdesktop.layout.GroupLayout(unknownAuthorPane);
-        unknownAuthorPane.setLayout(unknownAuthorPaneLayout);
-        unknownAuthorPaneLayout.setHorizontalGroup(
-            unknownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(unknownAuthorPaneLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(unknownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(unknownAuthorPaneLayout.createSequentialGroup()
-                        .add(jTextField2)
-                        .addContainerGap())
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, unknownAuthorPaneLayout.createSequentialGroup()
-                        .add(0, 124, Short.MAX_VALUE)
-                        .add(unknownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.CENTER)
-                            .add(jButton3)
-                            .add(computeMetrix)
-                            .add(saveButton))
-                        .add(83, 83, 83))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, unknownAuthorPaneLayout.createSequentialGroup()
-                        .add(jTextField1)
-                        .addContainerGap())))
-        );
-        unknownAuthorPaneLayout.setVerticalGroup(
-            unknownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(unknownAuthorPaneLayout.createSequentialGroup()
-                .add(17, 17, 17)
-                .add(computeMetrix)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jButton3)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
-                .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(saveButton)
-                .addContainerGap(93, Short.MAX_VALUE))
-        );
-
-        unknownAuthorPane.setBounds(0, 0, 350, 270);
-        jLayeredPane1.add(unknownAuthorPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -303,7 +343,7 @@ public class GUI extends javax.swing.JFrame {
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(40, 40, 40)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(fileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                            .add(fileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
                             .add(jLabel1))))
                 .add(16, 16, 16))
             .add(jPanel1Layout.createSequentialGroup()
@@ -318,7 +358,7 @@ public class GUI extends javax.swing.JFrame {
                 .add(authorKnown)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(37, 117, Short.MAX_VALUE)
+                        .add(37, 136, Short.MAX_VALUE)
                         .add(jButton1))
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(18, 18, 18)
@@ -358,7 +398,7 @@ public class GUI extends javax.swing.JFrame {
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(101, 101, 101)
                         .add(searchMetrics)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -417,18 +457,17 @@ public class GUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+            .add(layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
-                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 482, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(jTabbedPane1))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                         .add(19, 19, 19)
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 482, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(0, 0, Short.MAX_VALUE)))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                            .add(jScrollPane2))
+                        .add(0, 0, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jTabbedPane1)))
                 .addContainerGap())
         );
 
@@ -461,6 +500,17 @@ public class GUI extends javax.swing.JFrame {
     private void searchMetricsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMetricsActionPerformed
         //stuff
     }//GEN-LAST:event_searchMetricsActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //Test For Popup
+        Object[][] doubData = {{0.0, 1.0},{2.0,2.5},{9.0,5.0}};
+        MetricsTableModel test = new MetricsTableModel();
+        test.setData(doubData);
+        popupTable.setModel(test);
+        resultsPopup.pack();
+        resultsPopup.setLocationRelativeTo(this);
+        resultsPopup.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -526,6 +576,9 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel knownAuthorPane;
+    private javax.swing.JScrollPane popupScrollPane;
+    private javax.swing.JTable popupTable;
+    private javax.swing.JFrame resultsPopup;
     private javax.swing.JButton saveButton;
     private javax.swing.JButton searchMetrics;
     private javax.swing.JButton searchMetrics2;
