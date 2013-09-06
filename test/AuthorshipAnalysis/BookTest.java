@@ -172,7 +172,7 @@ double [] value = {0.01834862385321101, 0.11926605504587157,0.1651376146788991,
         System.out.println("frequencyOfVerbs");
 
         double expResult = 0.23853211009174313;
-        double result = book.frequencyOfVerbs();
+        double result = book.frequencyOfVerbUsage();
         assertEquals(expResult, result, 0.0);
     }
 

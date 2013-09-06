@@ -73,7 +73,7 @@ public final class SqlConnection {
                 pstat.setDouble(6, book.ratioWordToSentenceLength());
                 pstat.setDouble(7, book.vocabularyRichness());
                 pstat.setDouble(8, book.frequencyOfNounUsage());
-                pstat.setDouble(9, book.frequencyOfVerbs());
+                pstat.setDouble(9, book.frequencyOfVerbUsage());
                 pstat.setDouble(10, book.frequencyOfAdjectiveUsage());
                 pstat.setDouble(11, book.ratioAdjectivesToNounUsage());
                 pstat.setDouble(12, book.simpleLexicalDensity());
