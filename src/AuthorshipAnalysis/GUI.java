@@ -1,6 +1,15 @@
+package AuthorshipAnalysis;
+
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JFileChooser;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
 
 /*
  * To change this template, choose Tools | Templates
@@ -13,13 +22,120 @@ import javax.swing.JFileChooser;
  */
 public class GUI extends javax.swing.JFrame {
 
+    private MetricsTableModel mtm = new MetricsTableModel();
     /**
      * Creates new form GUI
      */
     public GUI() {
+                mtm.setData();
+        
         initComponents();
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                // do some actions here, for example
+                // print first column value from selected row
+                System.out.println(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+                buildSecondaryTable(jTable1.getValueAt(jTable1.getSelectedRow(), 1));
+            }
+        });
+        jTable1.setModel(mtm);
         knownAuthorPane.setVisible(false);
         unknownAuthorPane.setVisible(true);
+    }
+    
+    private void buildSecondaryTable(Object value) {
+        if (value instanceof Double) {
+            if(jScrollPane2.isVisible()) {
+                jScrollPane2.setVisible(false);
+                this.setSize(this.getSize().width - 200, this.getSize().height);
+            }
+        } else {
+            if(!jScrollPane2.isVisible()) {
+                jScrollPane2.setVisible(true);
+                this.setSize(this.getSize().width + 200, this.getSize().height);
+            }
+            Map<Integer, Double> al = new HashMap<Integer, Double>();
+            al.put(1, 1.0);
+            al.put(2, 2.0);
+            al.put(3, 3.0);
+            al.put(4, 4.0);
+            MetricsTableModel mtm2 = new MetricsTableModel();
+            mtm2.setData(al);
+            jTable2.setModel(mtm2);
+        }
+    }
+
+    class MetricsTableModel extends AbstractTableModel {
+
+        Object[][] data;
+        
+        public void setData() {
+            Map<Integer, Double> al = new HashMap<Integer, Double>();
+            al.put(1, 1.0);
+            al.put(2, 2.0);
+            al.put(3, 3.0);
+            al.put(4, 4.0);
+//            MetricsTableModel al = new MetricsTableModel();
+
+
+            Object[][] newData = {
+                {"hello", (double)1},
+                {"goodbye", al}
+                };
+            data = newData;
+        }
+        
+        public void setData(Map<?, ?> subMetricMap) {
+            Object[][] newData = new Object[subMetricMap.size()][2];
+            int iterator = 0;
+            for (Map.Entry<?, ?> entry : subMetricMap.entrySet())
+            {
+                newData[iterator][0] = entry.getKey();
+                newData[iterator][1] = entry.getValue();
+                iterator++;
+            }
+            data = newData;
+        }
+        
+        public void setData(Object[][] newData) {
+            data = newData;
+        }
+        
+        public void setData(Book newBook) {
+            Object[][] newData = {
+                {"Average Word Length", newBook.averageWordLength()},
+                {"Average Sentence Length", newBook.averageSentenceLength()},
+                {"Ratio Word To Sentence Length", newBook.ratioWordToSentenceLength()},
+                {"Relative Letter Frequency", newBook.relativeLetterFrequency()},
+                {"Relative Letter-Pair Frequency", newBook.relativeLetterPairFrequencies()},
+                {"Vocabulary Richness", newBook.vocabularyRichness()},
+                {"Distribution of Word Lengths", newBook.distributionOfWordLengths()},
+                {"Frequency of Noun Usage", newBook.frequencyOfNounUsage()},
+                {"Frequency of Verb Usage", newBook.frequencyOfVerbUsage()},
+                {"Ratio of Adjective to Noun Usage", newBook.ratioAdjectivesToNounUsage()},
+                {"SimpleLexicalDensity", newBook.simpleLexicalDensity()}
+            };
+            
+            this.data = newData;
+        }
+        
+        @Override
+        public int getRowCount() {
+            return 2;
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 2;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            if((data[rowIndex][columnIndex] instanceof Map)) {
+                return "+";
+            }
+            return data[rowIndex][columnIndex];
+        }
     }
 
     /**
@@ -55,6 +171,8 @@ public class GUI extends javax.swing.JFrame {
         searchMetrics = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,7 +231,7 @@ public class GUI extends javax.swing.JFrame {
                 .add(bookComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(42, 42, 42)
                 .add(searchMetrics2)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         knownAuthorPane.setBounds(0, 0, 350, 270);
@@ -140,7 +258,7 @@ public class GUI extends javax.swing.JFrame {
                         .add(jTextField2)
                         .addContainerGap())
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, unknownAuthorPaneLayout.createSequentialGroup()
-                        .add(0, 84, Short.MAX_VALUE)
+                        .add(0, 124, Short.MAX_VALUE)
                         .add(unknownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.CENTER)
                             .add(jButton3)
                             .add(computeMetrix)
@@ -163,7 +281,7 @@ public class GUI extends javax.swing.JFrame {
                 .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(saveButton)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         unknownAuthorPane.setBounds(0, 0, 350, 270);
@@ -185,7 +303,7 @@ public class GUI extends javax.swing.JFrame {
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(40, 40, 40)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(fileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                            .add(fileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                             .add(jLabel1))))
                 .add(16, 16, 16))
             .add(jPanel1Layout.createSequentialGroup()
@@ -200,7 +318,7 @@ public class GUI extends javax.swing.JFrame {
                 .add(authorKnown)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(37, 114, Short.MAX_VALUE)
+                        .add(37, 117, Short.MAX_VALUE)
                         .add(jButton1))
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(18, 18, 18)
@@ -240,7 +358,7 @@ public class GUI extends javax.swing.JFrame {
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(101, 101, 101)
                         .add(searchMetrics)))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -251,7 +369,7 @@ public class GUI extends javax.swing.JFrame {
                 .add(bookComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(60, 60, 60)
                 .add(searchMetrics)
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("View Data", jPanel2);
@@ -266,6 +384,24 @@ public class GUI extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Sub-metric", "Value"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -274,17 +410,22 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 381, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                .addContainerGap())
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 283, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 261, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 482, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .add(jTabbedPane1))
-                    .add(layout.createSequentialGroup()
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                         .add(19, 19, 19)
                         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 482, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(0, 0, Short.MAX_VALUE)))
@@ -378,8 +519,10 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel knownAuthorPane;
@@ -389,3 +532,4 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel unknownAuthorPane;
     // End of variables declaration//GEN-END:variables
 }
+

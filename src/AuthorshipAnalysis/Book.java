@@ -82,7 +82,7 @@ public final class Book {
         distributionOfWordLengths = distributionOfWordLengths();
         vocabRichness = vocabularyRichness();
         freqNoun = frequencyOfNounUsage();
-        freqVerb = frequencyOfVerbs();
+        freqVerb = frequencyOfVerbUsage();
         freqAdjective = frequencyOfAdjectiveUsage();
         adjectiveToNounRatio = ratioAdjectivesToNounUsage();
         lexicalDensity = simpleLexicalDensity();
@@ -435,7 +435,7 @@ public final class Book {
      *
      * @return freqVerb :double
      */
-    public double frequencyOfVerbs() {
+    public double frequencyOfVerbUsage() {
 
         if (freqVerb != -1) {
             return this.freqVerb;
