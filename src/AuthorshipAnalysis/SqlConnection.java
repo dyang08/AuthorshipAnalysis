@@ -16,7 +16,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -182,8 +184,8 @@ public final class SqlConnection {
         }
     }
 
-    public String[] getListOfAuthors() {
-        String[] authors = null;
+    public List<String> getListOfAuthors() {
+        List<String> authors = new ArrayList<>();
         PreparedStatement pstat = null;
         ResultSet rs = null;
         String sql = "SELECT DISTINCT author FROM book_metrics;";
@@ -198,8 +200,10 @@ public final class SqlConnection {
         if (pstat != null) {
             try {
                 rs = pstat.executeQuery();
-                rs.next();
-                authors = (String[]) rs.getArray(1).getArray();
+                while (rs.next()) {
+                    String value = rs.getString(1);
+                    authors.add(value);
+                }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
@@ -207,7 +211,7 @@ public final class SqlConnection {
 
         return authors;
     }
-    
+
     public AuthorMetrics getAuthorMetrics(String author) {
         AuthorMetrics authorMetrics = new AuthorMetrics();
         PreparedStatement pstat = null;
@@ -286,10 +290,10 @@ public final class SqlConnection {
 
         if (rs != null) {
             try {
-                while(rs.next()){
+                while (rs.next()) {
                     Integer letterNumber = rs.getInt(1);
                     Double avgFreq = rs.getDouble(2);
-                    relativeLetterFrequency[letterNumber] =avgFreq;
+                    relativeLetterFrequency[letterNumber] = avgFreq;
                 }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -327,7 +331,7 @@ public final class SqlConnection {
 
         if (rs != null) {
             try {
-                while(rs.next()){
+                while (rs.next()) {
                     Integer length = rs.getInt(1);
                     Double averagerDistribution = rs.getDouble(2);
                     distributionWordLength.put(length, averagerDistribution);
@@ -368,7 +372,7 @@ public final class SqlConnection {
 
         if (rs != null) {
             try {
-                while(rs.next()){
+                while (rs.next()) {
                     String pair = rs.getString(1);
                     Double avgFreq = rs.getDouble(2);
                     relativeLetterPairFrequency.put(pair, avgFreq);
