@@ -687,4 +687,3 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton viewMatchRankingsButton;
     // End of variables declaration//GEN-END:variables
 }
-
