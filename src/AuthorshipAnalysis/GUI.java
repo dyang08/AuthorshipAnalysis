@@ -196,7 +196,6 @@ public class GUI extends javax.swing.JFrame {
         searchMetrics2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         authorComboBox = new javax.swing.JComboBox();
-        bookComboBox = new javax.swing.JComboBox();
         searchMetrics = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -372,31 +371,30 @@ public class GUI extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(28, 28, 28)
-                        .add(authorKnown))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(40, 40, 40)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(fileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-                            .add(jLabel1))))
-                .add(16, 16, 16))
-            .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(jLayeredPane1)
+                        .add(jLayeredPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
                         .addContainerGap())
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
-                        .add(jButton1)
-                        .add(34, 34, 34))))
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(authorKnown)
+                                .add(jPanel1Layout.createSequentialGroup()
+                                    .add(12, 12, 12)
+                                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(fileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                                        .add(jLabel1))))
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(210, 210, 210)
+                                .add(jButton1)
+                                .add(18, 18, 18)))
+                        .add(16, 16, 16))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
-                .add(7, 7, 7)
+                .add(22, 22, 22)
                 .add(authorKnown)
                 .add(18, 18, 18)
                 .add(jLabel1)
@@ -404,7 +402,7 @@ public class GUI extends javax.swing.JFrame {
                 .add(fileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jButton1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 50, Short.MAX_VALUE)
                 .add(jLayeredPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 275, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -412,8 +410,6 @@ public class GUI extends javax.swing.JFrame {
         jTabbedPane1.addTab("Upload", jPanel1);
 
         authorComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Author", "---------------" }));
-
-        bookComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Books", "------------" }));
 
         searchMetrics.setText("Search Metrics");
         searchMetrics.addActionListener(new java.awt.event.ActionListener() {
@@ -430,9 +426,7 @@ public class GUI extends javax.swing.JFrame {
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(28, 28, 28)
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(bookComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 277, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(authorComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 277, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(authorComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 277, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(101, 101, 101)
                         .add(searchMetrics)))
@@ -443,9 +437,7 @@ public class GUI extends javax.swing.JFrame {
             .add(jPanel2Layout.createSequentialGroup()
                 .add(44, 44, 44)
                 .add(authorComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(40, 40, 40)
-                .add(bookComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(60, 60, 60)
+                .add(127, 127, 127)
                 .add(searchMetrics)
                 .addContainerGap(255, Short.MAX_VALUE))
         );
@@ -605,7 +597,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JComboBox authorComboBox1;
     private javax.swing.JComboBox authorComboBox2;
     private javax.swing.JCheckBox authorKnown;
-    private javax.swing.JComboBox bookComboBox;
     private javax.swing.JComboBox bookComboBox2;
     private javax.swing.JButton computeMetrix;
     private javax.swing.JTextField fileTextField;
