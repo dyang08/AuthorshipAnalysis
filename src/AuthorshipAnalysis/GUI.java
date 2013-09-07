@@ -2,7 +2,9 @@ package AuthorshipAnalysis;
 
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.event.ListSelectionEvent;
@@ -40,6 +42,13 @@ public class GUI extends javax.swing.JFrame {
         knownAuthorPane.setVisible(false);
         unknownAuthorPane.setVisible(true);
         newAuthorTextField.setEnabled(false);
+        SqlConnection database = new SqlConnection();
+        List<String> author = database.getListOfAuthors();
+        for(int i=0; i<author.size();i++){
+            authorComboBox.addItem(author.get(i));
+            authorComboBox1.addItem(author.get(i));
+            authorComboBox2.addItem(author.get(i));
+        }
     }
     
     private void buildSecondaryTable(Object value) {
