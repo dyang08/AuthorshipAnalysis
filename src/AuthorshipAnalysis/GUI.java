@@ -30,7 +30,6 @@ public class GUI extends javax.swing.JFrame {
      * Creates new form GUI
      */
     public GUI() {
-        mtm.setData();
         database = new SqlConnection();
         initComponents();
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -46,7 +45,9 @@ public class GUI extends javax.swing.JFrame {
                 }
             }
         });
-        jTable1.setModel(mtm);
+        MetricsTableModel defaultModel = new MetricsTableModel();
+        defaultModel.setData();
+        jTable1.setModel(defaultModel);
         jScrollPane2.setVisible(false);
         this.pack(); // used pack for tighter screen
         //this.setSize(this.getSize().width - 200, this.getSize().height);
@@ -651,6 +652,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_newAuthorFirstNameTextFieldActionPerformed
 
     private void computeMetricsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeMetricsButtonActionPerformed
+        MetricsTableModel tableModel = new MetricsTableModel();
         String fileAddress = fileAddressTextField.getText();
         String fileType;
 
@@ -673,8 +675,8 @@ public class GUI extends javax.swing.JFrame {
         }
         try {
             currentBook = new Book("", "", fileAddressTextField.getText());
-            mtm.setData(currentBook);
-            mtm.fireTableDataChanged();
+            tableModel.setData(currentBook);
+            jTable1.setModel(tableModel);
         } catch (IOException ioe) {
             JOptionPane.showMessageDialog(this,
                     "An error occured while parsing the book. \n" + ioe.getMessage(),
