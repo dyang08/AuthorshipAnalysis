@@ -60,21 +60,18 @@ public class GUI extends javax.swing.JFrame {
         if (value instanceof Double) {
             if(jScrollPane2.isVisible()) {
                 jScrollPane2.setVisible(false);
-                this.setSize(this.getSize().width - 200, this.getSize().height);
+                this.pack();
+                //this.setSize(this.getSize().width - 200, this.getSize().height);
             }
         } else if (value instanceof Map) {
             if(!jScrollPane2.isVisible()) {
                 jScrollPane2.setVisible(true);
-                this.setSize(this.getSize().width + 200, this.getSize().height);
-            }
-            Map<Integer, Double> al = new HashMap<Integer, Double>();
-            al.put(1, 1.0);
-            al.put(2, 2.0);
-            al.put(3, 3.0);
-            al.put(4, 4.0);
+                this.pack();
+                //this.setSize(this.getSize().width + 200, this.getSize().height);
             MetricsTableModel mtm2 = new MetricsTableModel();
-            mtm2.setData(al);
+            mtm2.setData((Map)value);
             jTable2.setModel(mtm2);
+            }
         }
     }
 
