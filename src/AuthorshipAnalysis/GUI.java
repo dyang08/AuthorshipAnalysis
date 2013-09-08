@@ -195,10 +195,10 @@ public class GUI extends javax.swing.JFrame {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             //causing issues with openning second table
-            if((data[rowIndex][columnIndex] instanceof Map ||
+            /*if((data[rowIndex][columnIndex] instanceof Map ||
                     data[rowIndex][columnIndex] instanceof double[])) {
                 return "+";
-            }
+            }*/
             return data[rowIndex][columnIndex];
         }
     }
