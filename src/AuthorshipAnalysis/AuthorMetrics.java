@@ -1,5 +1,7 @@
 package AuthorshipAnalysis;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 
 public class AuthorMetrics {
@@ -26,7 +28,7 @@ public class AuthorMetrics {
     public void setAuthor(String author) {
         this.author = author;
     }
-    
+
     /**
      * getAuthor
      *
@@ -51,7 +53,7 @@ public class AuthorMetrics {
      * @param value :double
      */
     public void setAvgSentenceLength(Double value) {
-        this.avgSentenceLength = value;
+        this.avgSentenceLength = convertValue(value);
     }
 
     /**
@@ -69,7 +71,7 @@ public class AuthorMetrics {
      * @param value :double
      */
     public void setWordToSentenceRatio(Double value) {
-        this.wordToSentenceRatio=value;
+        this.wordToSentenceRatio = convertValue(value);
     }
 
     /**
@@ -87,7 +89,10 @@ public class AuthorMetrics {
      * @param value:HashMap<Integer, Double>
      */
     public void setDistributionOfWordLengths(HashMap<Integer, Double> value) {
-        this.distributionOfWordLengths=value;
+        for(Integer length : value.keySet()){
+            value.put(length, convertValue(value.get(length)));
+        }
+        this.distributionOfWordLengths = value;
     }
 
     /**
@@ -105,6 +110,9 @@ public class AuthorMetrics {
      * @param value :double[]
      */
     public void setRelativeLetterFreq(Double[] value) {
+        for (int i = 0; i < value.length; i++) {
+            value[i] = convertValue(value[i]);        
+        }
         this.relativeLetterFreq = value;
     }
 
@@ -123,7 +131,10 @@ public class AuthorMetrics {
      * @param value:HashMap<String, Double>
      */
     public void setRelativeLetterPairFrequencies(HashMap<String, Double> value) {
-        this.relativeLetterPairFrequencies=value;
+        for(String pair : value.keySet()){
+            value.put(pair, convertValue(value.get(pair)));
+        }
+        this.relativeLetterPairFrequencies = value;
     }
 
     /**
@@ -141,7 +152,7 @@ public class AuthorMetrics {
      * @param value :double
      */
     public void setVocabRichness(Double value) {
-        this.vocabRichness=value;
+        this.vocabRichness = convertValue(value);
     }
 
     /**
@@ -159,7 +170,7 @@ public class AuthorMetrics {
      * @param value :double
      */
     public void setFreqNoun(Double value) {
-        this.freqNoun=value;
+        this.freqNoun = convertValue(value);
     }
 
     /**
@@ -177,7 +188,7 @@ public class AuthorMetrics {
      * @param value :double
      */
     public void setFreqVerb(Double value) {
-        this.freqVerb=value;
+        this.freqVerb = convertValue(value);
     }
 
     /**
@@ -195,7 +206,7 @@ public class AuthorMetrics {
      * @param value :double
      */
     public void setFreqAdjective(Double value) {
-        this.freqAdjective=value;
+        this.freqAdjective = convertValue(value);
     }
 
     /**
@@ -213,7 +224,7 @@ public class AuthorMetrics {
      * @param value :double
      */
     public void setAdjectiveToNounRatio(Double value) {
-        this.adjectiveToNounRatio=value;
+        this.adjectiveToNounRatio = convertValue(value);
     }
 
     /**
@@ -231,7 +242,7 @@ public class AuthorMetrics {
      * @param value:double
      */
     public void setLexicalDensity(Double value) {
-        this.lexicalDensity=value;
+        this.lexicalDensity = convertValue(value);
     }
 
     /**
@@ -249,6 +260,21 @@ public class AuthorMetrics {
      * @param value :double
      */
     public void setAvgWordLength(Double value) {
-        this.avgWordLength=value;
+        this.avgWordLength = convertValue(value);
+    }
+
+    /**
+     * Converts a double to value of two decimal places
+     *
+     * @param value original double value
+     * @return converted double value
+     */
+    private Double convertValue(Double value) {
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.multiply(BigDecimal.valueOf(100));
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        bd = bd.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP);
+        value = bd.doubleValue();
+        return value;
     }
 }

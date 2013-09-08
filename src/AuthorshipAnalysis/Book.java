@@ -2,10 +2,19 @@ package AuthorshipAnalysis;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.BreakIterator;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 import rita.RiLexicon;
 
 /**
@@ -22,10 +31,10 @@ public final class Book {
     private String bookAuthor;
     private String bookTitle;
     private String bookText;
-    private int numNouns;
-    private int numAdjectives;
-    private int numVerbs;
-    private int totalWords;
+    private double numNouns;
+    private double numAdjectives;
+    private double numVerbs;
+    private double totalWords;
     private double avgWordLength = -1;
     private double averageSentenceLength = -1;
     private double ratioWordToSentenceLength = -1;
@@ -117,7 +126,7 @@ public final class Book {
 
             this.avgWordLength = cumulativeSum / wordTotal;
 
-            return this.avgWordLength;
+            return convertValue(this.avgWordLength);
 
         }
     }
@@ -154,7 +163,7 @@ public final class Book {
 
             this.averageSentenceLength = cumulativeSum / sentenceTotal;
 
-            return this.averageSentenceLength;
+            return convertValue(this.averageSentenceLength);
 
         }
     }
@@ -169,10 +178,10 @@ public final class Book {
     public double ratioWordToSentenceLength() {
 
         if (ratioWordToSentenceLength != -1) {
-            return this.ratioWordToSentenceLength;
+            return convertValue(this.ratioWordToSentenceLength);
         } else {
             ratioWordToSentenceLength = averageWordLength() / averageSentenceLength();
-            return this.ratioWordToSentenceLength;
+            return convertValue(this.ratioWordToSentenceLength);
         }
 
     }
@@ -191,7 +200,6 @@ public final class Book {
         if (relativeLetterFrequency != null) {
             return this.relativeLetterFrequency;
         } else {
-
 
             frequencies = new double[26];
 
@@ -218,7 +226,7 @@ public final class Book {
             }
 
             for (int i = 0; i < frequencies.length; i++) {
-                frequencies[i] = frequencies[i] / cumulativeSum;
+                frequencies[i] = convertValue(frequencies[i] / cumulativeSum);
             }
 
         }
@@ -278,11 +286,12 @@ public final class Book {
 
                 Double num = relativeLetterPairFrequencies.get(ketSet);
 
-                Double freq = num / cumulativeSum;
+                Double freq = convertValue(num / cumulativeSum);
 
                 relativeLetterPairFrequencies.put(ketSet, freq);
             }
         }
+//        return sortHashMapByValuesD(relativeLetterPairFrequencies);
         return relativeLetterPairFrequencies;
     }
 
@@ -333,7 +342,7 @@ public final class Book {
             }
             this.vocabRichness = (double) uniqueWords / (double) total;
         }
-        return this.vocabRichness;
+        return convertValue(this.vocabRichness);
     }
 
     // Lower Metrics 
@@ -377,13 +386,14 @@ public final class Book {
 
                 double val = distributionOfWordLengths.get(key);
 
-                double dist = val / totalWords;
+                double dist = convertValue(val / totalWords);
 
                 distributionOfWordLengths.put(key, dist);
             }
 
         }
 
+//        return sortHashMapByValuesD(this.distributionOfWordLengths);
         return this.distributionOfWordLengths;
     }
 
@@ -423,7 +433,7 @@ public final class Book {
 
             this.freqNoun = (double) numNouns / (double) totalWords;
 
-            return this.freqNoun;
+            return convertValue(this.freqNoun);
 
         }
     }
@@ -461,7 +471,7 @@ public final class Book {
 
             this.freqVerb = (double) numVerbs / (double) totalWords;
 
-            return this.freqVerb;
+            return convertValue(this.freqVerb);
 
         }
     }
@@ -500,7 +510,7 @@ public final class Book {
 
             this.freqAdjective = (double) numAdjectives / (double) totalWords;
 
-            return this.freqAdjective;
+            return convertValue(this.freqAdjective);
 
         }
     }
@@ -516,12 +526,12 @@ public final class Book {
             return this.adjectiveToNounRatio;
         } else {
             if (numNouns != 0) {
-                this.adjectiveToNounRatio = numAdjectives / numNouns;
+                this.adjectiveToNounRatio = (numAdjectives/numNouns);
             } else {
                 this.adjectiveToNounRatio = 0;
             }
         }
-        return this.adjectiveToNounRatio;
+        return convertValue(this.adjectiveToNounRatio);
     }
 
     /**
@@ -538,7 +548,7 @@ public final class Book {
             this.lexicalDensity = ((double) numNouns + (double) numVerbs + (double) numAdjectives) / this.totalWords;
 
         }
-        return this.lexicalDensity;
+        return convertValue(this.lexicalDensity);
     }
 
     // *******************Getters and Setters************************* 
@@ -561,9 +571,9 @@ public final class Book {
     }
 
     /**
-     * Set the title 
-     * 
-     * @param title 
+     * Set the title
+     *
+     * @param title
      */
     public void setBookTitle(String title) {
         this.bookTitle = title;
@@ -571,8 +581,8 @@ public final class Book {
 
     /**
      * Set the author
-     * 
-     * @param author 
+     *
+     * @param author
      */
     public void setAuthor(String author) {
         this.bookAuthor = author;
@@ -604,5 +614,55 @@ public final class Book {
     void setId(int aInt) {
         this.id = aInt;
     }
+
+    /**
+     * Converts a double to value of two decimal places
+     * 
+     * @param value original double value
+     * @return converted double value
+     */
+    private Double convertValue(Double value) {
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.multiply(BigDecimal.valueOf(100));
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        bd = bd.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP);
+        value = bd.doubleValue();
+        return value;
+    }
+
+    
+    //This is of possible use. It can sort the hashmaps by value
+
+//    public HashMap sortHashMapByValuesD(HashMap passedMap) {
+//        List mapKeys = new ArrayList(passedMap.keySet());
+//        List mapValues = new ArrayList(passedMap.values());
+//        Collections.sort(mapValues);
+//        Collections.sort(mapKeys);
+//
+//        HashMap sortedMap
+//                = new LinkedHashMap();
+//
+//        Iterator valueIt = mapValues.iterator();
+//        while (valueIt.hasNext()) {
+//            Object val = valueIt.next();
+//            Iterator keyIt = mapKeys.iterator();
+//
+//            while (keyIt.hasNext()) {
+//                Object key = keyIt.next();
+//                String comp1 = passedMap.get(key).toString();
+//                String comp2 = val.toString();
+//
+//                if (comp1.equals(comp2)) {
+//                    passedMap.remove(key);
+//                    mapKeys.remove(key);
+//                    sortedMap.put(key, (Double) val);
+//                    break;
+//                }
+//
+//            }
+//
+//        }
+//        return sortedMap;
+//    }
 
 }//end Book Class
