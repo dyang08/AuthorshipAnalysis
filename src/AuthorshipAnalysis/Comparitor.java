@@ -1,3 +1,5 @@
+package AuthorshipAnalysis;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class Comparitor {
 	 * be compared, then sets the authorList.
 	 */
 	public Comparitor(Book b) {
-		SqlConnection sql = new SqlConnection();
+		sql = new SqlConnection();
 		this.newBook = b;
 		getAuthorsAndMetrics();		
 	}
