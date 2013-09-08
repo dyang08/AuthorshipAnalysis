@@ -4,7 +4,6 @@ package AuthorshipAnalysis;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.ComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -22,7 +21,6 @@ import javax.swing.table.AbstractTableModel;
 public class GUI extends javax.swing.JFrame {
 
     private MetricsTableModel mtm = new MetricsTableModel();
-    private SqlConnection sqlConnection = new SqlConnection();
     /**
      * Creates new form GUI
      */
@@ -205,7 +203,7 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
 
-        resultsPopup.setName("popupResults"); // NOI18N
+        resultsPopup.setName("popupResults");
 
         popupTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -329,8 +327,8 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLayeredPane1.add(unknownAuthorPane);
         unknownAuthorPane.setBounds(0, 0, 350, 260);
+        jLayeredPane1.add(unknownAuthorPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         authorComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Author", "----------" }));
 
@@ -366,8 +364,8 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(61, Short.MAX_VALUE))
         );
 
-        jLayeredPane1.add(knownAuthorPane);
         knownAuthorPane.setBounds(0, 0, 350, 270);
+        jLayeredPane1.add(knownAuthorPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -413,7 +411,7 @@ public class GUI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Upload", jPanel1);
 
-        authorComboBox.setModel(new javax.swing.DefaultComboBoxModel(sqlConnection.getListOfAuthors().toArray()));
+        authorComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Author", "---------------" }));
 
         bookComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Books", "------------" }));
 
