@@ -155,6 +155,7 @@ public class GUI extends javax.swing.JFrame {
                 {"Average Word Length", metrics.getAvgWordLength()},
                 {"Average Sentence Length", metrics.getAvgSentenceLength()},
                 {"Ratio Word To Sentence Length", metrics.getWordToSentenceRatio()},
+                //Needs different return type or method to correct
                 {"Relative Letter Frequency", metrics.getRelativeLetterFreq()},
                 {"Relative Letter-Pair Frequency", metrics.getRelativeLetterPairFrequencies()},
                 {"Vocabulary Richness", metrics.getVocabRichness()},
@@ -189,6 +190,7 @@ public class GUI extends javax.swing.JFrame {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
+            //causing issues with openning second table
             if((data[rowIndex][columnIndex] instanceof Map ||
                     data[rowIndex][columnIndex] instanceof double[])) {
                 return "+";
