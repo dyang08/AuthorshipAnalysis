@@ -38,13 +38,17 @@ public class GUI extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent event) {
                 // do some actions here, for example
                 // print first column value from selected row
+                // If statement prevents error when creating new table
+                if(jTable1.getSelectedRowCount()!=0){
                 System.out.println(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
                 buildSecondaryTable(jTable1.getValueAt(jTable1.getSelectedRow(), 1));
-            }
+                }
+                }     
         });
         jTable1.setModel(mtm);
         jScrollPane2.setVisible(false);
-        this.setSize(this.getSize().width - 200, this.getSize().height);
+        this.pack(); // used pack for tighter screen
+        //this.setSize(this.getSize().width - 200, this.getSize().height);
         knownAuthorPane.setVisible(false);
         unknownAuthorPane.setVisible(true);
         newAuthorFirstNameTextField.setEnabled(false);
@@ -232,7 +236,9 @@ public class GUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         knownAuthorPane = new javax.swing.JPanel();
         authorComboBox2 = new javax.swing.JComboBox();
-        searchMetrics2 = new javax.swing.JButton();
+        saveBookMetrics = new javax.swing.JButton();
+        newBookTitleTextField2 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         computeMetricsButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         authorViewDataComboBox = new javax.swing.JComboBox();
@@ -393,7 +399,9 @@ public class GUI extends javax.swing.JFrame {
 
         authorComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Author", "----------" }));
 
-        searchMetrics2.setText("Compute Metrics");
+        saveBookMetrics.setText("Save Book Metrics");
+
+        jLabel6.setText("Book Title");
 
         org.jdesktop.layout.GroupLayout knownAuthorPaneLayout = new org.jdesktop.layout.GroupLayout(knownAuthorPane);
         knownAuthorPane.setLayout(knownAuthorPaneLayout);
@@ -402,11 +410,17 @@ public class GUI extends javax.swing.JFrame {
             .add(knownAuthorPaneLayout.createSequentialGroup()
                 .add(knownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(knownAuthorPaneLayout.createSequentialGroup()
-                        .add(42, 42, 42)
-                        .add(authorComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 261, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(knownAuthorPaneLayout.createSequentialGroup()
                         .add(92, 92, 92)
-                        .add(searchMetrics2)))
+                        .add(saveBookMetrics))
+                    .add(knownAuthorPaneLayout.createSequentialGroup()
+                        .add(42, 42, 42)
+                        .add(knownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(knownAuthorPaneLayout.createSequentialGroup()
+                                .add(6, 6, 6)
+                                .add(jLabel6))
+                            .add(knownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                .add(authorComboBox2, 0, 261, Short.MAX_VALUE)
+                                .add(newBookTitleTextField2)))))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         knownAuthorPaneLayout.setVerticalGroup(
@@ -414,8 +428,12 @@ public class GUI extends javax.swing.JFrame {
             .add(knownAuthorPaneLayout.createSequentialGroup()
                 .add(53, 53, 53)
                 .add(authorComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(68, 68, 68)
-                .add(searchMetrics2)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLabel6)
+                .add(6, 6, 6)
+                .add(newBookTitleTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(saveBookMetrics)
                 .addContainerGap(93, Short.MAX_VALUE))
         );
 
@@ -594,6 +612,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         //Reset tabs to default config
+        setup();
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void searchMetricsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMetricsButtonActionPerformed
@@ -726,6 +745,11 @@ public class GUI extends javax.swing.JFrame {
             authorComboBox2.addItem(authors.get(i));
             authorViewDataComboBox.addItem(authors.get(i));
         }
+        //Reset text boxes to blank
+        newAuthorFirstNameTextField.setText(null);
+        newAuthorLastNameTextField.setText(null);
+        newBookTitleTextField.setText(null);
+        newBookTitleTextField2.setText(null);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox authorComboBox1;
@@ -741,6 +765,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -754,11 +779,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField newAuthorFirstNameTextField;
     private javax.swing.JTextField newAuthorLastNameTextField;
     private javax.swing.JTextField newBookTitleTextField;
+    private javax.swing.JTextField newBookTitleTextField2;
     private javax.swing.JScrollPane popupScrollPane;
     private javax.swing.JTable popupTable;
     private javax.swing.JFrame resultsPopup;
+    private javax.swing.JButton saveBookMetrics;
     private javax.swing.JButton saveButton;
-    private javax.swing.JButton searchMetrics2;
     private javax.swing.JButton searchMetricsButton;
     private javax.swing.JPanel unknownAuthorPane;
     private javax.swing.JButton viewMatchRankingsButton;
