@@ -1,6 +1,5 @@
 package AuthorshipAnalysis;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,10 +13,9 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
-
 /**
  *
  * @author david122288
@@ -26,7 +24,8 @@ public class GUI extends javax.swing.JFrame {
 
     private MetricsTableModel mtm = new MetricsTableModel();
     private Book currentBook;
-    private SqlConnection  database;
+    private SqlConnection database;
+
     /**
      * Creates new form GUI
      */
@@ -34,16 +33,17 @@ public class GUI extends javax.swing.JFrame {
         mtm.setData();
         database = new SqlConnection();
         initComponents();
-        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
             public void valueChanged(ListSelectionEvent event) {
                 // do some actions here, for example
                 // print first column value from selected row
                 // If statement prevents error when creating new table
-                if(jTable1.getSelectedRowCount()!=0){
-                System.out.println(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-                buildSecondaryTable(jTable1.getValueAt(jTable1.getSelectedRow(), 1));
+                if (jTable1.getSelectedRowCount() != 0) {
+                    System.out.println(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+                    buildSecondaryTable(jTable1.getValueAt(jTable1.getSelectedRow(), 1));
                 }
-                }     
+            }
         });
         jTable1.setModel(mtm);
         jScrollPane2.setVisible(false);
@@ -54,33 +54,26 @@ public class GUI extends javax.swing.JFrame {
         newAuthorFirstNameTextField.setEnabled(false);
         setup();
     }
-    
+
     private void buildSecondaryTable(Object value) {
         if (value instanceof Double) {
-            if(jScrollPane2.isVisible()) {
                 jScrollPane2.setVisible(false);
-                this.setSize(this.getSize().width - 200, this.getSize().height);
-            }
+                this.pack();
         } else if (value instanceof Map) {
-            if(!jScrollPane2.isVisible()) {
                 jScrollPane2.setVisible(true);
-                this.setSize(this.getSize().width + 200, this.getSize().height);
-            }
-            Map<Integer, Double> al = new HashMap<Integer, Double>();
-            al.put(1, 1.0);
-            al.put(2, 2.0);
-            al.put(3, 3.0);
-            al.put(4, 4.0);
-            MetricsTableModel mtm2 = new MetricsTableModel();
-            mtm2.setData(al);
-            jTable2.setModel(mtm2);
+                this.pack();               
+                MetricsTableModel mtm2 = new MetricsTableModel();
+                mtm2.setData((Map) value);
+                jTable2.setModel(mtm2);
+            
         }
     }
 
     class MetricsTableModel extends AbstractTableModel {
+
         Object[] column;
         Object[][] data;
-        
+
         public void setData() {
             Map<Integer, Double> al = new HashMap<Integer, Double>();
             al.put(1, 1.0);
@@ -91,32 +84,31 @@ public class GUI extends javax.swing.JFrame {
 
 
             Object[][] newData = {
-                {"hello", (double)1},
+                {"hello", (double) 1},
                 {"goodbye", al}
-                };
+            };
             data = newData;
         }
-        
+
         public void setData(Map<?, ?> subMetricMap) {
-            Object[] columnName = {"Metric","Value"};
-            setData(subMetricMap,columnName);
+            Object[] columnName = {"Metric", "Value"};
+            setData(subMetricMap, columnName);
         }
-        
+
         public void setData(Object[][] newData) {
-            Object[] columnName= {"Metric","Value"};
+            Object[] columnName = {"Metric", "Value"};
             setData(newData, columnName);
         }
-        
+
         public void setData(Book newBook) {
-            Object[] columnName = {"Metric","Value"};
+            Object[] columnName = {"Metric", "Value"};
             setData(newBook, columnName);
         }
-        
-        public void setData(Map<?, ?> subMetricMap, Object[] columnName){
+
+        public void setData(Map<?, ?> subMetricMap, Object[] columnName) {
             Object[][] newData = new Object[subMetricMap.size()][2];
             int iterator = 0;
-            for (Map.Entry<?, ?> entry : subMetricMap.entrySet())
-            {
+            for (Map.Entry<?, ?> entry : subMetricMap.entrySet()) {
                 newData[iterator][0] = entry.getKey();
                 newData[iterator][1] = entry.getValue();
                 iterator++;
@@ -124,18 +116,18 @@ public class GUI extends javax.swing.JFrame {
             data = newData;
             column = columnName;
         }
-        
-        public void setData(Object[][] newData, Object[] columnName){
+
+        public void setData(Object[][] newData, Object[] columnName) {
             data = newData;
             column = columnName;
         }
-        
-        public void setData(Book newBook, Object[] columnName){
+
+        public void setData(Book newBook, Object[] columnName) {
             Object[][] newData = {
                 {"Average Word Length", newBook.averageWordLength()},
                 {"Average Sentence Length", newBook.averageSentenceLength()},
                 {"Ratio Word To Sentence Length", newBook.ratioWordToSentenceLength()},
-                {"Relative Letter Frequency", newBook.relativeLetterFrequency()},
+                {"Relative Letter Frequency", fixRelativeLetterFrequancy(newBook.relativeLetterFrequency())},
                 {"Relative Letter-Pair Frequency", newBook.relativeLetterPairFrequencies()},
                 {"Vocabulary Richness", newBook.vocabularyRichness()},
                 {"Distribution of Word Lengths", newBook.distributionOfWordLengths()},
@@ -144,23 +136,23 @@ public class GUI extends javax.swing.JFrame {
                 {"Ratio of Adjective to Noun Usage", newBook.ratioAdjectivesToNounUsage()},
                 {"SimpleLexicalDensity", newBook.simpleLexicalDensity()}
             };
-            
+
             data = newData;
             column = columnName;
         }
-        
-        public void setData(AuthorMetrics metrics){
-            Object[] columnName = {"Metric","Value"};
+
+        public void setData(AuthorMetrics metrics) {
+            Object[] columnName = {"Metric", "Value"};
             setData(metrics, columnName);
         }
-        
-        public void setData(AuthorMetrics metrics, Object[] columnName){
+
+        public void setData(AuthorMetrics metrics, Object[] columnName) {
             Object[][] newData = {
                 {"Average Word Length", metrics.getAvgWordLength()},
                 {"Average Sentence Length", metrics.getAvgSentenceLength()},
                 {"Ratio Word To Sentence Length", metrics.getWordToSentenceRatio()},
                 //Needs different return type or method to correct
-                {"Relative Letter Frequency", metrics.getRelativeLetterFreq()},
+                {"Relative Letter Frequency", fixRelativeLetterFrequancy(metrics.getRelativeLetterFreq())},
                 {"Relative Letter-Pair Frequency", metrics.getRelativeLetterPairFrequencies()},
                 {"Vocabulary Richness", metrics.getVocabRichness()},
                 {"Distribution of Word Lengths", metrics.getDistributionOfWordLengths()},
@@ -169,11 +161,11 @@ public class GUI extends javax.swing.JFrame {
                 {"Ratio of Adjective to Noun Usage", metrics.getAdjectiveToNounRatio()},
                 {"SimpleLexicalDensity", metrics.getLexicalDensity()}
             };
-            
+            fixRelativeLetterFrequancy(metrics.getRelativeLetterFreq());
             data = newData;
             column = columnName;
         }
-        
+
         @Override
         public int getRowCount() {
             return data.length;
@@ -183,23 +175,54 @@ public class GUI extends javax.swing.JFrame {
         public int getColumnCount() {
             return 2;
         }
+
         @Override
-        public String getColumnName(int column){
-            if(this.column==null){
+        public String getColumnName(int column) {
+            if (this.column == null) {
                 return super.getColumnName(column);
-            }else{
-            return this.column[column].toString();
+            } else {
+                return this.column[column].toString();
             }
         }
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             //causing issues with openning second table
-            /*if((data[rowIndex][columnIndex] instanceof Map ||
-                    data[rowIndex][columnIndex] instanceof double[])) {
-                return "+";
-            }*/
+            /*
+             * if((data[rowIndex][columnIndex] instanceof Map ||
+             * data[rowIndex][columnIndex] instanceof double[])) { return "+"; }
+             */
             return data[rowIndex][columnIndex];
+        }
+
+        public Object[][] fixRelativeLetterFrequancy(Double[] data) {
+            if (data.length == 26) {
+                //Change this to a map
+                Object[][] newData = {{'A', data[0]}, {'B', data[1]}, {'C', data[2]},
+                    {'D', data[3]}, {'E', data[4]}, {'F', data[5]}, {'G', data[6]}, {'H', data[7]},
+                    {'I', data[8]}, {'J', data[9]}, {'K', data[10]}, {'L', data[11]}, {'M', data[12]},
+                    {'N', data[13]}, {'O', data[14]}, {'P', data[15]}, {'Q', data[16]}, {'R', data[17]},
+                    {'S', data[18]}, {'T', data[19]}, {'U', data[20]}, {'V', data[21]}, {'W', data[22]},
+                    {'X', data[23]}, {'Y', data[24]}, {'Z', data[25]},};
+
+                return newData;
+            }
+            return null;
+        }
+
+        public Object[][] fixRelativeLetterFrequancy(double[] data) {
+            if (data.length == 26) {
+                //change this to a map
+                Object[][] newData = {{'A', data[0]}, {'B', data[1]}, {'C', data[2]},
+                    {'D', data[3]}, {'E', data[4]}, {'F', data[5]}, {'G', data[6]}, {'H', data[7]},
+                    {'I', data[8]}, {'J', data[9]}, {'K', data[10]}, {'L', data[11]}, {'M', data[12]},
+                    {'N', data[13]}, {'O', data[14]}, {'P', data[15]}, {'Q', data[16]}, {'R', data[17]},
+                    {'S', data[18]}, {'T', data[19]}, {'U', data[20]}, {'V', data[21]}, {'W', data[22]},
+                    {'X', data[23]}, {'Y', data[24]}, {'Z', data[25]},};
+
+                return newData;
+            }
+            return null;
         }
     }
 
@@ -604,10 +627,10 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void authorKnownChkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorKnownChkBoxActionPerformed
-        if(authorKnownChkBox.isSelected()){
+        if (authorKnownChkBox.isSelected()) {
             knownAuthorPane.setVisible(true);
             unknownAuthorPane.setVisible(false);
-        }else{
+        } else {
             knownAuthorPane.setVisible(false);
             unknownAuthorPane.setVisible(true);
         }
@@ -615,7 +638,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseButtonActionPerformed
         int returnVal = jFileChooser1.showOpenDialog(jLabel1);
-        if(returnVal == JFileChooser.APPROVE_OPTION){
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
             fileAddressTextField.removeAll();
             File fileName = jFileChooser1.getSelectedFile();
             fileAddressTextField.setText(fileName.getPath());
@@ -632,12 +655,12 @@ public class GUI extends javax.swing.JFrame {
         MetricsTableModel model = new MetricsTableModel();
         model.setData(authorMetrics);
         jTable1.setModel(model);
-        
+
     }//GEN-LAST:event_searchMetricsButtonActionPerformed
 
     private void viewMatchRankingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMatchRankingsButtonActionPerformed
         //Test For Popup
-        Object[][] doubData = {{0.0, 1.0},{2.0,2.5},{9.0,5.0}};
+        Object[][] doubData = {{0.0, 1.0}, {2.0, 2.5}, {9.0, 5.0}};
         MetricsTableModel test = new MetricsTableModel();
         test.setData(doubData);
         popupTable.setModel(test);
@@ -648,14 +671,14 @@ public class GUI extends javax.swing.JFrame {
 
     private void authorComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorComboBox1ActionPerformed
         //Had to use setEnabled because Visible was causing a need for a extra click
-        if(authorComboBox1.getSelectedItem()!=null){
-        if(authorComboBox1.getSelectedItem().equals("New Author")){
-            newAuthorFirstNameTextField.setEnabled(true);
-            newAuthorLastNameTextField.setEnabled(true);
-        }else{
-            newAuthorFirstNameTextField.setEnabled(false);
-            newAuthorLastNameTextField.setEnabled(false);
-        }
+        if (authorComboBox1.getSelectedItem() != null) {
+            if (authorComboBox1.getSelectedItem().equals("New Author")) {
+                newAuthorFirstNameTextField.setEnabled(true);
+                newAuthorLastNameTextField.setEnabled(true);
+            } else {
+                newAuthorFirstNameTextField.setEnabled(false);
+                newAuthorLastNameTextField.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_authorComboBox1ActionPerformed
 
@@ -666,22 +689,22 @@ public class GUI extends javax.swing.JFrame {
     private void computeMetricsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeMetricsButtonActionPerformed
         String fileAddress = fileAddressTextField.getText();
         String fileType;
-        
+
         if (!fileAddress.contains(".")) {
             JOptionPane.showMessageDialog(this,
-                "File must be a zip. epub, or txt file.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
+                    "File must be a zip. epub, or txt file.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
-        fileType = fileAddress.substring(fileAddress.lastIndexOf("."), 
-                                                fileAddress.length());
-        if (fileType.matches(".zip") && fileType.matches(".epub") && 
-                fileType.matches("txt")) {
+        fileType = fileAddress.substring(fileAddress.lastIndexOf("."),
+                fileAddress.length());
+        if (fileType.matches(".zip") && fileType.matches(".epub")
+                && fileType.matches("txt")) {
             JOptionPane.showMessageDialog(this,
-                "File must be a zip. epub, or txt file.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
+                    "File must be a zip. epub, or txt file.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
@@ -690,15 +713,15 @@ public class GUI extends javax.swing.JFrame {
             mtm.fireTableDataChanged();
         } catch (IOException ioe) {
             JOptionPane.showMessageDialog(this,
-                "An error occured while parsing the book. \n" + ioe.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
+                    "An error occured while parsing the book. \n" + ioe.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
     }//GEN-LAST:event_computeMetricsButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-       // TODO
+        // TODO
     }//GEN-LAST:event_saveButtonActionPerformed
 
     /**
@@ -742,8 +765,8 @@ public class GUI extends javax.swing.JFrame {
             }
         });
     }
-    
-    private void setup(){
+
+    private void setup() {
         //setup combo Boxes
         authorComboBox1.removeAllItems();
         authorComboBox2.removeAllItems();
@@ -756,7 +779,7 @@ public class GUI extends javax.swing.JFrame {
         authorViewDataComboBox.addItem("Author");
         authorViewDataComboBox.addItem("-------");
         List<String> authors = database.getListOfAuthors();
-        for (int i=0;i<authors.size();i++){
+        for (int i = 0; i < authors.size(); i++) {
             authorComboBox1.addItem(authors.get(i));
             authorComboBox2.addItem(authors.get(i));
             authorViewDataComboBox.addItem(authors.get(i));
