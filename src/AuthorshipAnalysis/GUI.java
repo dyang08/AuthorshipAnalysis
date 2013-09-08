@@ -1,6 +1,5 @@
 package AuthorshipAnalysis;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,10 +13,9 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
-
 /**
  *
  * @author david122288
@@ -26,7 +24,8 @@ public class GUI extends javax.swing.JFrame {
 
     private MetricsTableModel mtm = new MetricsTableModel();
     private Book currentBook;
-    private SqlConnection  database;
+    private SqlConnection database;
+
     /**
      * Creates new form GUI
      */
@@ -34,17 +33,18 @@ public class GUI extends javax.swing.JFrame {
         mtm.setData();
         database = new SqlConnection();
         initComponents();
-        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
             public void valueChanged(ListSelectionEvent event) {
                 // do some actions here, for example
                 // print first column value from selected row
                 // If statement prevents error when creating new table
-                if(jTable1.getSelectedRowCount()!=0){
+                if (jTable1.getSelectedRowCount() != 0) {
                     System.out.println(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-                    Object value = ((MetricsTableModel)jTable1.getModel()).data[jTable1.getSelectedRow()][1];
+                    Object value = ((MetricsTableModel) jTable1.getModel()).data[jTable1.getSelectedRow()][1];
                     buildSecondaryTable(value);
                 }
-            }     
+            }
         });
         jTable1.setModel(mtm);
         jScrollPane2.setVisible(false);
@@ -55,57 +55,55 @@ public class GUI extends javax.swing.JFrame {
         newAuthorFirstNameTextField.setEnabled(false);
         setup();
     }
-    
+
     private void buildSecondaryTable(Object value) {
         if (value instanceof Double) {
-            if(jScrollPane2.isVisible()) {
-                jScrollPane2.setVisible(false);
-                this.pack();
-                //this.setSize(this.getSize().width - 200, this.getSize().height);
-            }
+            jScrollPane2.setVisible(false);
+            this.pack();
+            //this.setSize(this.getSize().width - 200, this.getSize().height);
+
         } else if (value instanceof Map) {
-            if(!jScrollPane2.isVisible()) {
-                jScrollPane2.setVisible(true);
-                this.pack();
-                //this.setSize(this.getSize().width + 200, this.getSize().height);
+            jScrollPane2.setVisible(true);
+            this.pack();
+            //this.setSize(this.getSize().width + 200, this.getSize().height);
             MetricsTableModel mtm2 = new MetricsTableModel();
-            mtm2.setData((Map)value);
+            mtm2.setData((Map) value);
             jTable2.setModel(mtm2);
-            }
+
         }
     }
 
     class MetricsTableModel extends AbstractTableModel {
+
         Object[] column;
         Object[][] data;
-        
+
         public void setData() {
             Object[][] newData = {};
-            Object[] columnName = {"Metric","Value"};
+            Object[] columnName = {"Metric", "Value"};
             column = columnName;
             data = newData;
         }
-        
+
         public void setData(Map<?, ?> subMetricMap) {
-            Object[] columnName = {"Metric","Value"};
-            setData(subMetricMap,columnName);
+            Object[] columnName = {"Metric", "Value"};
+            setData(subMetricMap, columnName);
         }
-        
+
         public void setData(Object[][] newData) {
-            Object[] columnName= {"Metric","Value"};
+            Object[] columnName = {"Metric", "Value"};
             setData(newData, columnName);
         }
-        
+
         public void setData(Book newBook) {
-            Object[] columnName = {"Metric","Value"};
+            Object[] columnName = {"Metric", "Value"};
             setData(newBook, columnName);
         }
-        
-        public void setData(Map<?, ?> subMetricMap, Object[] columnName){
+
+        public void setData(Map<?, ?> subMetricMap, Object[] columnName) {
             Object[][] newData = new Object[subMetricMap.size()][2];
             int iterator = 0;
-            for (Map.Entry<?, ?> entry : subMetricMap.entrySet())
-            {
+            for (Map.Entry<?, ?> entry : subMetricMap.entrySet()) {
                 newData[iterator][0] = entry.getKey();
                 newData[iterator][1] = entry.getValue();
                 iterator++;
@@ -113,13 +111,13 @@ public class GUI extends javax.swing.JFrame {
             data = newData;
             column = columnName;
         }
-        
-        public void setData(Object[][] newData, Object[] columnName){
+
+        public void setData(Object[][] newData, Object[] columnName) {
             data = newData;
             column = columnName;
         }
-        
-        public void setData(Book newBook, Object[] columnName){
+
+        public void setData(Book newBook, Object[] columnName) {
             Object[][] newData = {
                 {"Average Word Length", newBook.averageWordLength()},
                 {"Average Sentence Length", newBook.averageSentenceLength()},
@@ -133,17 +131,17 @@ public class GUI extends javax.swing.JFrame {
                 {"Ratio of Adjective to Noun Usage", newBook.ratioAdjectivesToNounUsage()},
                 {"SimpleLexicalDensity", newBook.simpleLexicalDensity()}
             };
-            
+
             data = newData;
             column = columnName;
         }
-        
-        public void setData(AuthorMetrics metrics){
-            Object[] columnName = {"Metric","Value"};
+
+        public void setData(AuthorMetrics metrics) {
+            Object[] columnName = {"Metric", "Value"};
             setData(metrics, columnName);
         }
-        
-        public void setData(AuthorMetrics metrics, Object[] columnName){
+
+        public void setData(AuthorMetrics metrics, Object[] columnName) {
             Object[][] newData = {
                 {"Average Word Length", metrics.getAvgWordLength()},
                 {"Average Sentence Length", metrics.getAvgSentenceLength()},
@@ -158,11 +156,11 @@ public class GUI extends javax.swing.JFrame {
                 {"Ratio of Adjective to Noun Usage", metrics.getAdjectiveToNounRatio()},
                 {"SimpleLexicalDensity", metrics.getLexicalDensity()}
             };
-            
+
             data = newData;
             column = columnName;
         }
-        
+
         @Override
         public int getRowCount() {
             return data.length;
@@ -172,20 +170,21 @@ public class GUI extends javax.swing.JFrame {
         public int getColumnCount() {
             return 2;
         }
+
         @Override
-        public String getColumnName(int column){
-            if(this.column==null){
+        public String getColumnName(int column) {
+            if (this.column == null) {
                 return super.getColumnName(column);
-            }else{
-            return this.column[column].toString();
+            } else {
+                return this.column[column].toString();
             }
         }
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             //causing issues with openning second table
-            if((data[rowIndex][columnIndex] instanceof Map ||
-                    data[rowIndex][columnIndex] instanceof double[])) {
+            if ((data[rowIndex][columnIndex] instanceof Map
+                    || data[rowIndex][columnIndex] instanceof double[])) {
                 return "+";
             }
             return data[rowIndex][columnIndex];
@@ -593,10 +592,10 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void authorKnownChkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorKnownChkBoxActionPerformed
-        if(authorKnownChkBox.isSelected()){
+        if (authorKnownChkBox.isSelected()) {
             knownAuthorPane.setVisible(true);
             unknownAuthorPane.setVisible(false);
-        }else{
+        } else {
             knownAuthorPane.setVisible(false);
             unknownAuthorPane.setVisible(true);
         }
@@ -604,7 +603,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseButtonActionPerformed
         int returnVal = jFileChooser1.showOpenDialog(jLabel1);
-        if(returnVal == JFileChooser.APPROVE_OPTION){
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
             fileAddressTextField.removeAll();
             File fileName = jFileChooser1.getSelectedFile();
             fileAddressTextField.setText(fileName.getPath());
@@ -625,7 +624,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void viewMatchRankingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMatchRankingsButtonActionPerformed
         //Test For Popup
-        Object[][] doubData = {{0.0, 1.0},{2.0,2.5},{9.0,5.0}};
+        Object[][] doubData = {{0.0, 1.0}, {2.0, 2.5}, {9.0, 5.0}};
         MetricsTableModel test = new MetricsTableModel();
         test.setData(doubData);
         popupTable.setModel(test);
@@ -636,14 +635,14 @@ public class GUI extends javax.swing.JFrame {
 
     private void authorComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorComboBox1ActionPerformed
         //Had to use setEnabled because Visible was causing a need for a extra click
-        if(authorComboBox1.getSelectedItem()!=null){
-        if(authorComboBox1.getSelectedItem().equals("New Author")){
-            newAuthorFirstNameTextField.setEnabled(true);
-            newAuthorLastNameTextField.setEnabled(true);
-        }else{
-            newAuthorFirstNameTextField.setEnabled(false);
-            newAuthorLastNameTextField.setEnabled(false);
-        }
+        if (authorComboBox1.getSelectedItem() != null) {
+            if (authorComboBox1.getSelectedItem().equals("New Author")) {
+                newAuthorFirstNameTextField.setEnabled(true);
+                newAuthorLastNameTextField.setEnabled(true);
+            } else {
+                newAuthorFirstNameTextField.setEnabled(false);
+                newAuthorLastNameTextField.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_authorComboBox1ActionPerformed
 
@@ -654,22 +653,22 @@ public class GUI extends javax.swing.JFrame {
     private void computeMetricsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeMetricsButtonActionPerformed
         String fileAddress = fileAddressTextField.getText();
         String fileType;
-        
+
         if (!fileAddress.contains(".")) {
             JOptionPane.showMessageDialog(this,
-                "File must be a zip. epub, or txt file.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
+                    "File must be a zip. epub, or txt file.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
-        fileType = fileAddress.substring(fileAddress.lastIndexOf("."), 
-                                                fileAddress.length());
-        if (fileType.matches(".zip") && fileType.matches(".epub") && 
-                fileType.matches("txt")) {
+        fileType = fileAddress.substring(fileAddress.lastIndexOf("."),
+                fileAddress.length());
+        if (fileType.matches(".zip") && fileType.matches(".epub")
+                && fileType.matches("txt")) {
             JOptionPane.showMessageDialog(this,
-                "File must be a zip. epub, or txt file.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
+                    "File must be a zip. epub, or txt file.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
@@ -678,15 +677,15 @@ public class GUI extends javax.swing.JFrame {
             mtm.fireTableDataChanged();
         } catch (IOException ioe) {
             JOptionPane.showMessageDialog(this,
-                "An error occured while parsing the book. \n" + ioe.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
+                    "An error occured while parsing the book. \n" + ioe.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
     }//GEN-LAST:event_computeMetricsButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-       // TODO
+        // TODO
     }//GEN-LAST:event_saveButtonActionPerformed
 
     /**
@@ -730,8 +729,8 @@ public class GUI extends javax.swing.JFrame {
             }
         });
     }
-    
-    private void setup(){
+
+    private void setup() {
         //setup combo Boxes
         authorComboBox1.removeAllItems();
         authorComboBox2.removeAllItems();
@@ -744,7 +743,7 @@ public class GUI extends javax.swing.JFrame {
         authorViewDataComboBox.addItem("Author");
         authorViewDataComboBox.addItem("-------");
         List<String> authors = database.getListOfAuthors();
-        for (int i=0;i<authors.size();i++){
+        for (int i = 0; i < authors.size(); i++) {
             authorComboBox1.addItem(authors.get(i));
             authorComboBox2.addItem(authors.get(i));
             authorViewDataComboBox.addItem(authors.get(i));
