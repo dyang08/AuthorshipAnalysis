@@ -755,6 +755,7 @@ public class GUI extends javax.swing.JFrame {
         newAuthorLastNameTextField.setText(null);
         newBookTitleTextField.setText(null);
         newBookTitleTextField2.setText(null);
+        fileAddressTextField.setText("Enter File Address");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox authorComboBox1;
