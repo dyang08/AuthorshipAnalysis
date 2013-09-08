@@ -281,15 +281,17 @@ public final class Book {
                     }
                 }
             }
+            HashMap<String, Double> temp = new HashMap<>();
+            for (String keySet : relativeLetterPairFrequencies.keySet()) {
 
-            for (String ketSet : relativeLetterPairFrequencies.keySet()) {
-
-                Double num = relativeLetterPairFrequencies.get(ketSet);
+                Double num = relativeLetterPairFrequencies.get(keySet);
 
                 Double freq = convertValue(num / cumulativeSum);
-
-                relativeLetterPairFrequencies.put(ketSet, freq);
+                if (freq > 0) {
+                    temp.put(keySet, freq);
+                } 
             }
+            relativeLetterPairFrequencies = temp;
         }
 //        return sortHashMapByValuesD(relativeLetterPairFrequencies);
         return relativeLetterPairFrequencies;
@@ -381,16 +383,17 @@ public final class Book {
                     distributionOfWordLengths.put(word.length(), 1.0);
                 }
             }
-
+            HashMap<Integer, Double> temp = new HashMap<>();
             for (Integer key : distributionOfWordLengths.keySet()) {
 
                 double val = distributionOfWordLengths.get(key);
 
                 double dist = convertValue(val / totalWords);
-
-                distributionOfWordLengths.put(key, dist);
+                if (dist > 0) {
+                    temp.put(key, dist);
+                } 
             }
-
+            distributionOfWordLengths = temp;
         }
 
 //        return sortHashMapByValuesD(this.distributionOfWordLengths);
@@ -526,7 +529,7 @@ public final class Book {
             return this.adjectiveToNounRatio;
         } else {
             if (numNouns != 0) {
-                this.adjectiveToNounRatio = (numAdjectives/numNouns);
+                this.adjectiveToNounRatio = (numAdjectives / numNouns);
             } else {
                 this.adjectiveToNounRatio = 0;
             }
@@ -617,7 +620,7 @@ public final class Book {
 
     /**
      * Converts a double to value of two decimal places
-     * 
+     *
      * @param value original double value
      * @return converted double value
      */
@@ -630,9 +633,7 @@ public final class Book {
         return value;
     }
 
-    
     //This is of possible use. It can sort the hashmaps by value
-
 //    public HashMap sortHashMapByValuesD(HashMap passedMap) {
 //        List mapKeys = new ArrayList(passedMap.keySet());
 //        List mapValues = new ArrayList(passedMap.values());
@@ -664,5 +665,4 @@ public final class Book {
 //        }
 //        return sortedMap;
 //    }
-
 }//end Book Class

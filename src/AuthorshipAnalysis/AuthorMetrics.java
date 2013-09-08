@@ -89,10 +89,15 @@ public class AuthorMetrics {
      * @param value:HashMap<Integer, Double>
      */
     public void setDistributionOfWordLengths(HashMap<Integer, Double> value) {
-        for(Integer length : value.keySet()){
-            value.put(length, convertValue(value.get(length)));
+        HashMap<Integer, Double> temp = new HashMap<>();
+        for (Integer length : value.keySet()) {
+            double dist = value.get(length);
+            if (dist > 0) {
+                temp.put(length, dist);
+            } 
         }
-        this.distributionOfWordLengths = value;
+        
+        this.distributionOfWordLengths = temp;
     }
 
     /**
@@ -111,7 +116,7 @@ public class AuthorMetrics {
      */
     public void setRelativeLetterFreq(Double[] value) {
         for (int i = 0; i < value.length; i++) {
-            value[i] = convertValue(value[i]);        
+            value[i] = convertValue(value[i]);
         }
         this.relativeLetterFreq = value;
     }
@@ -131,10 +136,14 @@ public class AuthorMetrics {
      * @param value:HashMap<String, Double>
      */
     public void setRelativeLetterPairFrequencies(HashMap<String, Double> value) {
-        for(String pair : value.keySet()){
-            value.put(pair, convertValue(value.get(pair)));
+        HashMap<String, Double> temp = new HashMap<>();
+        for (String pair : value.keySet()) {
+            double freq = value.get(pair);
+            if (freq > 0) {
+                temp.put(pair, freq);
+            } 
         }
-        this.relativeLetterPairFrequencies = value;
+        this.relativeLetterPairFrequencies = temp;
     }
 
     /**
