@@ -115,8 +115,10 @@ public class AuthorMetrics {
      * @param value :double[]
      */
     public void setRelativeLetterFreq(Double[] value) {
-        for (int i = 0; i < value.length; i++) {
-            value[i] = convertValue(value[i]);
+        for (Double value1 : value) {
+            if(value1 !=null){
+            value1 = convertValue(value1);
+            }
         }
         this.relativeLetterFreq = value;
     }

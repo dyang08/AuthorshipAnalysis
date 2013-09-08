@@ -1,9 +1,7 @@
 package AuthorshipAnalysis;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JFileChooser;
@@ -22,9 +20,9 @@ import javax.swing.table.AbstractTableModel;
  */
 public class GUI extends javax.swing.JFrame {
 
-    private MetricsTableModel mtm = new MetricsTableModel();
+    private final MetricsTableModel mtm = new MetricsTableModel();
     private Book currentBook;
-    private SqlConnection database;
+    private final SqlConnection database;
 
     /**
      * Creates new form GUI
@@ -34,6 +32,7 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
+            @Override
             public void valueChanged(ListSelectionEvent event) {
                 // do some actions here, for example
                 // print first column value from selected row
@@ -770,6 +769,7 @@ public class GUI extends javax.swing.JFrame {
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
                 new GUI().setVisible(true);
             }

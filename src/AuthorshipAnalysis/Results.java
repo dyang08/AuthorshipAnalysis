@@ -1,7 +1,5 @@
 package AuthorshipAnalysis;
 
-import java.util.HashMap;
-
 
 public class Results {
 

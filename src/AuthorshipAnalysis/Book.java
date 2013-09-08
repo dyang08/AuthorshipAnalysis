@@ -5,16 +5,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.BreakIterator;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
 import rita.RiLexicon;
 
 /**
@@ -30,7 +23,7 @@ public final class Book {
     private int id;
     private String bookAuthor;
     private String bookTitle;
-    private String bookText;
+    private final String bookText;
     private double numNouns;
     private double numAdjectives;
     private double numVerbs;
@@ -44,12 +37,12 @@ public final class Book {
     private double freqAdjective = -1;
     private double adjectiveToNounRatio = -1;
     private double lexicalDensity = -1;
-    private double[] relativeLetterFrequency;
+    private final double[] relativeLetterFrequency;
     private HashMap<String, Double> relativeLetterPairFrequencies;
     private HashMap<Integer, Double> distributionOfWordLengths;
-    private HashMap<Integer, Double> wordLength;
+    private final HashMap<Integer, Double> wordLength;
     private StringTokenizer st;
-    private GetTextFromFile textFile = new GetTextFromFile();
+    private final GetTextFromFile textFile = new GetTextFromFile();
 
     Book(String booktext) {
 

@@ -16,9 +16,9 @@ import java.util.logging.Logger;
  */
 public class GetTextFromFile {
 
-    private static EpubUnZip unzip = new EpubUnZip();
+    private static final EpubUnZip unzip = new EpubUnZip();
     private static ArrayList<String> fileList;
-    private static String bookWordList = null;
+    private static final String bookWordList = null;
 
     public String getString(String fileName) throws FileNotFoundException, IOException {
 
@@ -64,7 +64,7 @@ public class GetTextFromFile {
         String fileString = null;
 
         try {
-            StringTokenizer reader = null;
+            StringTokenizer reader;
             File file = new File(fileName);
 
             FileInputStream fileInput = null;

@@ -9,7 +9,6 @@ package AuthorshipAnalysis;
  *
  * @author Hector
  */
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -187,7 +186,7 @@ public final class SqlConnection {
     public List<String> getListOfAuthors() {
         List<String> authors = new ArrayList<>();
         PreparedStatement pstat = null;
-        ResultSet rs = null;
+        ResultSet rs;
         String sql = "SELECT DISTINCT author FROM book_metrics;";
         if (conn != null) {
             try {
