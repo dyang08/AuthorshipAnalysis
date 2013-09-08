@@ -41,7 +41,7 @@ public class GUI extends javax.swing.JFrame {
                 // If statement prevents error when creating new table
                 if(jTable1.getSelectedRowCount()!=0){
                     System.out.println(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-                    Object value = mtm.data[jTable1.getSelectedRow()][1];
+                    Object value = ((MetricsTableModel)jTable1.getModel()).data[jTable1.getSelectedRow()][1];
                     buildSecondaryTable(value);
                 }
             }     
@@ -621,7 +621,6 @@ public class GUI extends javax.swing.JFrame {
         MetricsTableModel model = new MetricsTableModel();
         model.setData(authorMetrics);
         jTable1.setModel(model);
-        
     }//GEN-LAST:event_searchMetricsButtonActionPerformed
 
     private void viewMatchRankingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMatchRankingsButtonActionPerformed
