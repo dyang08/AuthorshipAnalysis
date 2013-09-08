@@ -541,7 +541,7 @@ public final class Book {
         return this.lexicalDensity;
     }
 
-    // *******************Getters ************************* 
+    // *******************Getters and Setters************************* 
     /**
      * getBookTitle
      *
@@ -558,6 +558,24 @@ public final class Book {
      */
     public String getAuthor() {
         return this.bookAuthor;
+    }
+    
+    /**
+     * Set the title 
+     * 
+     * @param title 
+     */
+    public void setBookTitle(String title) {
+        this.bookTitle = title;
+    }
+
+    /**
+     * Set the author
+     * 
+     * @param author 
+     */
+    public void setAuthor(String author) {
+        this.bookAuthor = author;
     }
 
     /**
