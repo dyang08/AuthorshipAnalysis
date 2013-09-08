@@ -2,9 +2,12 @@ package AuthorshipAnalysis;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -181,7 +184,7 @@ public class GUI extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         authorKnownChkBox = new javax.swing.JCheckBox();
-        fileTextField = new javax.swing.JTextField();
+        fileAddressTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         browseButton = new javax.swing.JButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
@@ -259,7 +262,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        fileTextField.setText("Enter file location");
+        fileAddressTextField.setText("Enter file location");
 
         jLabel1.setText("Book Location");
 
@@ -314,20 +317,20 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(unknownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, authorComboBox1, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(unknownAuthorPaneLayout.createSequentialGroup()
-                        .add(jLabel2)
-                        .add(0, 0, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, unknownAuthorPaneLayout.createSequentialGroup()
                         .add(0, 0, Short.MAX_VALUE)
                         .add(saveButton)
                         .add(103, 103, 103))
                     .add(newBookTitleTextField)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, newAuthorLastNameTextField)
-                    .add(jLabel4)
                     .add(newAuthorFirstNameTextField)
-                    .add(unknownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(jLabel3)
-                        .add(jLabel5)))
+                    .add(unknownAuthorPaneLayout.createSequentialGroup()
+                        .add(unknownAuthorPaneLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel2)
+                            .add(jLabel4)
+                            .add(jLabel3)
+                            .add(jLabel5))
+                        .add(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         unknownAuthorPaneLayout.setVerticalGroup(
@@ -396,6 +399,11 @@ public class GUI extends javax.swing.JFrame {
         jLayeredPane1.add(knownAuthorPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         computeMetricsButton.setText("Compute Metrics");
+        computeMetricsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                computeMetricsButtonActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -409,7 +417,7 @@ public class GUI extends javax.swing.JFrame {
                 .add(28, 28, 28)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(fileTextField)
+                        .add(fileAddressTextField)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(browseButton))
                     .add(jLabel1)
@@ -429,7 +437,7 @@ public class GUI extends javax.swing.JFrame {
                 .add(jLabel1)
                 .add(2, 2, 2)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(fileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(fileAddressTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(browseButton))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(computeMetricsButton)
@@ -488,8 +496,6 @@ public class GUI extends javax.swing.JFrame {
                 .add(searchMetricsButton)
                 .addContainerGap(273, Short.MAX_VALUE))
         );
-
-        label2.getAccessibleContext().setAccessibleName("Book");
 
         jTabbedPane1.addTab("View Data", jPanel2);
 
@@ -566,9 +572,9 @@ public class GUI extends javax.swing.JFrame {
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseButtonActionPerformed
         int returnVal = jFileChooser1.showOpenDialog(jLabel1);
         if(returnVal == JFileChooser.APPROVE_OPTION){
-            fileTextField.removeAll();
+            fileAddressTextField.removeAll();
             File fileName = jFileChooser1.getSelectedFile();
-            fileTextField.setText(fileName.getPath());
+            fileAddressTextField.setText(fileName.getPath());
         }
     }//GEN-LAST:event_browseButtonActionPerformed
 
@@ -605,6 +611,41 @@ public class GUI extends javax.swing.JFrame {
     private void newAuthorFirstNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newAuthorFirstNameTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_newAuthorFirstNameTextFieldActionPerformed
+
+    private void computeMetricsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeMetricsButtonActionPerformed
+        String fileAddress = fileAddressTextField.getText();
+        String fileType;
+        Book unknownAuthorBook;
+        
+        if (!fileAddress.contains(".")) {
+            JOptionPane.showMessageDialog(this,
+                "File must be a zip. epub, or txt file.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        fileType = fileAddress.substring(fileAddress.lastIndexOf("."), 
+                                                fileAddress.length());
+        if (fileType.matches(".zip") && fileType.matches(".epub") && 
+                fileType.matches("txt")) {
+            JOptionPane.showMessageDialog(this,
+                "File must be a zip. epub, or txt file.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            unknownAuthorBook = new Book("", "", fileAddressTextField.getText());
+            mtm.setData(unknownAuthorBook);
+            mtm.fireTableDataChanged();
+        } catch (IOException ioe) {
+            JOptionPane.showMessageDialog(this,
+                "An error occured while parsing the book. \n" + ioe.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }//GEN-LAST:event_computeMetricsButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -656,7 +697,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JComboBox booksViewDataComboBox;
     private javax.swing.JButton browseButton;
     private javax.swing.JButton computeMetricsButton;
-    private javax.swing.JTextField fileTextField;
+    private javax.swing.JTextField fileAddressTextField;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
