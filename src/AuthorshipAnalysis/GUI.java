@@ -40,10 +40,11 @@ public class GUI extends javax.swing.JFrame {
                 // print first column value from selected row
                 // If statement prevents error when creating new table
                 if(jTable1.getSelectedRowCount()!=0){
-                System.out.println(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-                buildSecondaryTable(jTable1.getValueAt(jTable1.getSelectedRow(), 1));
+                    System.out.println(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+                    Object value = mtm.data[jTable1.getSelectedRow()][1];
+                    buildSecondaryTable(value);
                 }
-                }     
+            }     
         });
         jTable1.setModel(mtm);
         jScrollPane2.setVisible(false);
@@ -82,18 +83,9 @@ public class GUI extends javax.swing.JFrame {
         Object[][] data;
         
         public void setData() {
-            Map<Integer, Double> al = new HashMap<Integer, Double>();
-            al.put(1, 1.0);
-            al.put(2, 2.0);
-            al.put(3, 3.0);
-            al.put(4, 4.0);
-//            MetricsTableModel al = new MetricsTableModel();
-
-
-            Object[][] newData = {
-                {"hello", (double)1},
-                {"goodbye", al}
-                };
+            Object[][] newData = {};
+            Object[] columnName = {"Metric","Value"};
+            column = columnName;
             data = newData;
         }
         
@@ -195,10 +187,10 @@ public class GUI extends javax.swing.JFrame {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             //causing issues with openning second table
-            /*if((data[rowIndex][columnIndex] instanceof Map ||
+            if((data[rowIndex][columnIndex] instanceof Map ||
                     data[rowIndex][columnIndex] instanceof double[])) {
                 return "+";
-            }*/
+            }
             return data[rowIndex][columnIndex];
         }
     }
