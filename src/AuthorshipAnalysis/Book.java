@@ -51,19 +51,19 @@ public final class Book {
         numAdjectives = 0;
         numVerbs = 0;
         totalWords = 0;
-        avgWordLength = -1;
-        averageSentenceLength = -1;
-        ratioWordToSentenceLength = -1;
-        relativeLetterFrequency = null;
-        relativeLetterPairFrequencies = null;
-        distributionOfWordLengths = null;
-        vocabRichness = -1;
-        freqNoun = -1;
-        freqVerb = -1;
-        freqAdjective = -1;
-        adjectiveToNounRatio = -1;
-        lexicalDensity = -1;
-        wordLength = null;
+        avgWordLength = averageWordLength();
+        averageSentenceLength = averageSentenceLength();
+        ratioWordToSentenceLength = ratioWordToSentenceLength();
+        relativeLetterFrequency = relativeLetterFrequency();
+        relativeLetterPairFrequencies = relativeLetterPairFrequencies();
+        distributionOfWordLengths = distributionOfWordLengths();
+        vocabRichness = vocabularyRichness();
+        freqNoun = frequencyOfNounUsage();
+        freqVerb = frequencyOfVerbUsage();
+        freqAdjective = frequencyOfAdjectiveUsage();
+        adjectiveToNounRatio = ratioAdjectivesToNounUsage();
+        lexicalDensity = simpleLexicalDensity();
+        wordLength = distributionOfWordLengths();
     }
 
     Book(String author, String title, String fileName) throws FileNotFoundException, IOException {
@@ -77,7 +77,7 @@ public final class Book {
         avgWordLength = averageWordLength();
         averageSentenceLength = averageSentenceLength();
         ratioWordToSentenceLength = ratioWordToSentenceLength();
-        relativeLetterFrequency = null;
+        relativeLetterFrequency = relativeLetterFrequency();
         relativeLetterPairFrequencies = relativeLetterPairFrequencies();
         distributionOfWordLengths = distributionOfWordLengths();
         vocabRichness = vocabularyRichness();
@@ -126,7 +126,7 @@ public final class Book {
      * averageSentenceLength gets average sentence length from bookText if that
      * value is not already set
      *
-     * @return  return averageSentenceLength :double
+     * @return return averageSentenceLength :double
      */
     public double averageSentenceLength() {
 
@@ -164,7 +164,7 @@ public final class Book {
      * averageSentenceLength() to calculate the ratio of words to number of
      * sentence length
      *
-     * @return  return  ratioWordToSentenceLength :double
+     * @return return ratioWordToSentenceLength :double
      */
     public double ratioWordToSentenceLength() {
 
@@ -182,17 +182,17 @@ public final class Book {
      * of time each letter is used in the text and returns that letters average
      * compared to the total number of letters used.
      *
-     * @return  return  frequencies :double[]
+     * @return return frequencies :double[]
      */
     public double[] relativeLetterFrequency() {
-
+        double cumulativeSum = 0;
         double[] frequencies;
 
         if (relativeLetterFrequency != null) {
             return this.relativeLetterFrequency;
         } else {
 
-            double cumulativeSum = 0;
+
             frequencies = new double[26];
 
             for (int i = 0; i < frequencies.length; i++) {
@@ -203,16 +203,16 @@ public final class Book {
 
             while (st.hasMoreTokens()) {
 
-                String word = st.nextToken();
-
+                String word = st.nextToken(" ");
+                cumulativeSum += word.length();
                 for (int i = 0; i < word.length(); i++) {
 
                     int charValue = Character.getNumericValue(word.charAt(i)) - 10;
 
                     if (charValue >= 0 && charValue <= 26) {
 
-                        frequencies[charValue]++;
-                        cumulativeSum++;
+                        frequencies[charValue] = frequencies[charValue] + 1;
+
                     }
                 }
             }
@@ -231,7 +231,7 @@ public final class Book {
      * letter pairs to a HashMap then counts the number of times that letter
      * pair appears in the text string
      *
-     * @return  return  relativeLetterPairFrequencies :HashMap<String, Double>
+     * @return return relativeLetterPairFrequencies :HashMap<String, Double>
      */
     public HashMap<String, Double> relativeLetterPairFrequencies() {
 
@@ -291,7 +291,7 @@ public final class Book {
      * text the divide that by the total number of word giving the vocabulary
      * richness for the text.
      *
-     * @return  return  vocabRichness :double
+     * @return return vocabRichness :double
      */
     public double vocabularyRichness() {
 
@@ -342,7 +342,7 @@ public final class Book {
      * time each word appears in the text string then divides by the total
      * number of words
      *
-     * @return  return  distributionOfWordLengths :HashMap<Integer, Double>
+     * @return return distributionOfWordLengths :HashMap<Integer, Double>
      */
     public HashMap<Integer, Double> distributionOfWordLengths() {
 
@@ -393,7 +393,7 @@ public final class Book {
      * and the number of total words then finds the average of nouns to total
      * words.
      *
-     * @return  return  freqNoun :double
+     * @return return freqNoun :double
      */
     public double frequencyOfNounUsage() {
 
@@ -433,7 +433,7 @@ public final class Book {
      * compare them against a dictionary. Then counts the number of verbs and
      * the number of total words then finds the average of verbs to total words.
      *
-     * @return  return  freqVerb :double
+     * @return return freqVerb :double
      */
     public double frequencyOfVerbUsage() {
 
@@ -472,7 +472,7 @@ public final class Book {
      * adjective and the number of total words then finds the average of
      * adjective to total words.
      *
-     * @return  return  freqAdjective :double
+     * @return return freqAdjective :double
      */
     public double frequencyOfAdjectiveUsage() {
 
@@ -508,7 +508,7 @@ public final class Book {
     /**
      * ratioAdjectivesToNounUsage finds the average adjectives to noun ratio.
      *
-     * @return  return  adjectiveToNounRatio :double
+     * @return return adjectiveToNounRatio :double
      */
     public double ratioAdjectivesToNounUsage() {
 
@@ -528,14 +528,14 @@ public final class Book {
      * simpleLexicalDensity takes the values form the total number of nouns,
      * verbs and adjectives. Then divides that by the total number of words.
      *
-     * @return  return  lexicalDensity :double
+     * @return return lexicalDensity :double
      */
     public double simpleLexicalDensity() {
 
         if (lexicalDensity != -1) {
             return this.lexicalDensity;
         } else {
-            this.lexicalDensity = ((double)numNouns +(double) numVerbs +(double) numAdjectives) / this.totalWords;
+            this.lexicalDensity = ((double) numNouns + (double) numVerbs + (double) numAdjectives) / this.totalWords;
 
         }
         return this.lexicalDensity;
@@ -545,7 +545,7 @@ public final class Book {
     /**
      * getBookTitle
      *
-     * @return  return  bookTitle :String
+     * @return return bookTitle :String
      */
     public String getBookTitle() {
         return this.bookTitle;
@@ -554,12 +554,12 @@ public final class Book {
     /**
      * getAuthor
      *
-     * @return  return  bookAuthor :String
+     * @return return bookAuthor :String
      */
     public String getAuthor() {
         return this.bookAuthor;
     }
-    
+
     /**
      * Set the title 
      * 
@@ -581,7 +581,7 @@ public final class Book {
     /**
      * getWordLength
      *
-     * @return  return  avgWordLength:double
+     * @return return avgWordLength:double
      */
     public double getWordLength() {
         return this.avgWordLength;
@@ -590,7 +590,7 @@ public final class Book {
     /**
      * get the id
      *
-     * @return  return  id
+     * @return return id
      */
     public int getId() {
         return this.id;
@@ -604,4 +604,5 @@ public final class Book {
     void setId(int aInt) {
         this.id = aInt;
     }
+
 }//end Book Class
