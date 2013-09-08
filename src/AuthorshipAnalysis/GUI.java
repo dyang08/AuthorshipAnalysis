@@ -30,7 +30,6 @@ public class GUI extends javax.swing.JFrame {
      * Creates new form GUI
      */
     public GUI() {
-        mtm.setData();
         database = new SqlConnection();
         initComponents();
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -41,11 +40,14 @@ public class GUI extends javax.swing.JFrame {
                 // If statement prevents error when creating new table
                 if (jTable1.getSelectedRowCount() != 0) {
                     System.out.println(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-                    buildSecondaryTable(jTable1.getValueAt(jTable1.getSelectedRow(), 1));
+                    Object value = ((MetricsTableModel) jTable1.getModel()).data[jTable1.getSelectedRow()][1];
+                    buildSecondaryTable(value);
                 }
             }
         });
-        jTable1.setModel(mtm);
+        MetricsTableModel defaultModel = new MetricsTableModel();
+        defaultModel.setData();
+        jTable1.setModel(defaultModel);
         jScrollPane2.setVisible(false);
         this.pack(); // used pack for tighter screen
         //this.setSize(this.getSize().width - 200, this.getSize().height);
@@ -57,15 +59,18 @@ public class GUI extends javax.swing.JFrame {
 
     private void buildSecondaryTable(Object value) {
         if (value instanceof Double) {
-                jScrollPane2.setVisible(false);
-                this.pack();
+            jScrollPane2.setVisible(false);
+            this.pack();
+            //this.setSize(this.getSize().width - 200, this.getSize().height);
+
         } else if (value instanceof Map) {
-                jScrollPane2.setVisible(true);
-                this.pack();               
-                MetricsTableModel mtm2 = new MetricsTableModel();
-                mtm2.setData((Map) value);
-                jTable2.setModel(mtm2);
-            
+            jScrollPane2.setVisible(true);
+            this.pack();
+            //this.setSize(this.getSize().width + 200, this.getSize().height);
+            MetricsTableModel mtm2 = new MetricsTableModel();
+            mtm2.setData((Map) value);
+            jTable2.setModel(mtm2);
+
         }
     }
 
@@ -75,18 +80,9 @@ public class GUI extends javax.swing.JFrame {
         Object[][] data;
 
         public void setData() {
-            Map<Integer, Double> al = new HashMap<Integer, Double>();
-            al.put(1, 1.0);
-            al.put(2, 2.0);
-            al.put(3, 3.0);
-            al.put(4, 4.0);
-//            MetricsTableModel al = new MetricsTableModel();
-
-
-            Object[][] newData = {
-                {"hello", (double) 1},
-                {"goodbye", al}
-            };
+            Object[][] newData = {};
+            Object[] columnName = {"Metric", "Value"};
+            column = columnName;
             data = newData;
         }
 
@@ -127,7 +123,7 @@ public class GUI extends javax.swing.JFrame {
                 {"Average Word Length", newBook.averageWordLength()},
                 {"Average Sentence Length", newBook.averageSentenceLength()},
                 {"Ratio Word To Sentence Length", newBook.ratioWordToSentenceLength()},
-                {"Relative Letter Frequency", fixRelativeLetterFrequancy(newBook.relativeLetterFrequency())},
+                {"Relative Letter Frequency", newBook.relativeLetterFrequency()},
                 {"Relative Letter-Pair Frequency", newBook.relativeLetterPairFrequencies()},
                 {"Vocabulary Richness", newBook.vocabularyRichness()},
                 {"Distribution of Word Lengths", newBook.distributionOfWordLengths()},
@@ -152,7 +148,7 @@ public class GUI extends javax.swing.JFrame {
                 {"Average Sentence Length", metrics.getAvgSentenceLength()},
                 {"Ratio Word To Sentence Length", metrics.getWordToSentenceRatio()},
                 //Needs different return type or method to correct
-                {"Relative Letter Frequency", fixRelativeLetterFrequancy(metrics.getRelativeLetterFreq())},
+                {"Relative Letter Frequency", metrics.getRelativeLetterFreq()},
                 {"Relative Letter-Pair Frequency", metrics.getRelativeLetterPairFrequencies()},
                 {"Vocabulary Richness", metrics.getVocabRichness()},
                 {"Distribution of Word Lengths", metrics.getDistributionOfWordLengths()},
@@ -161,7 +157,7 @@ public class GUI extends javax.swing.JFrame {
                 {"Ratio of Adjective to Noun Usage", metrics.getAdjectiveToNounRatio()},
                 {"SimpleLexicalDensity", metrics.getLexicalDensity()}
             };
-            fixRelativeLetterFrequancy(metrics.getRelativeLetterFreq());
+
             data = newData;
             column = columnName;
         }
@@ -188,10 +184,10 @@ public class GUI extends javax.swing.JFrame {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             //causing issues with openning second table
-            /*
-             * if((data[rowIndex][columnIndex] instanceof Map ||
-             * data[rowIndex][columnIndex] instanceof double[])) { return "+"; }
-             */
+            if ((data[rowIndex][columnIndex] instanceof Map
+                    || data[rowIndex][columnIndex] instanceof double[])) {
+                return "+";
+            }
             return data[rowIndex][columnIndex];
         }
 
@@ -319,7 +315,12 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        fileAddressTextField.setText("Enter file ");
+        fileAddressTextField.setText("12345");
+        fileAddressTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileAddressTextFieldActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Book Location");
 
@@ -626,6 +627,15 @@ public class GUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void fileAddressTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        int returnVal = jFileChooser1.showOpenDialog(jLabel1);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            fileAddressTextField.removeAll();
+            File fileName = jFileChooser1.getSelectedFile();
+            fileAddressTextField.setText(fileName.getPath());
+        }
+    } 
+    
     private void authorKnownChkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorKnownChkBoxActionPerformed
         if (authorKnownChkBox.isSelected()) {
             knownAuthorPane.setVisible(true);
@@ -655,7 +665,6 @@ public class GUI extends javax.swing.JFrame {
         MetricsTableModel model = new MetricsTableModel();
         model.setData(authorMetrics);
         jTable1.setModel(model);
-
     }//GEN-LAST:event_searchMetricsButtonActionPerformed
 
     private void viewMatchRankingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMatchRankingsButtonActionPerformed
@@ -687,6 +696,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_newAuthorFirstNameTextFieldActionPerformed
 
     private void computeMetricsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeMetricsButtonActionPerformed
+        MetricsTableModel tableModel = new MetricsTableModel();
         String fileAddress = fileAddressTextField.getText();
         String fileType;
 
@@ -709,8 +719,8 @@ public class GUI extends javax.swing.JFrame {
         }
         try {
             currentBook = new Book("", "", fileAddressTextField.getText());
-            mtm.setData(currentBook);
-            mtm.fireTableDataChanged();
+            tableModel.setData(currentBook);
+            jTable1.setModel(tableModel);
         } catch (IOException ioe) {
             JOptionPane.showMessageDialog(this,
                     "An error occured while parsing the book. \n" + ioe.getMessage(),
@@ -789,6 +799,7 @@ public class GUI extends javax.swing.JFrame {
         newAuthorLastNameTextField.setText(null);
         newBookTitleTextField.setText(null);
         newBookTitleTextField2.setText(null);
+        fileAddressTextField.setText(null);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox authorComboBox1;
