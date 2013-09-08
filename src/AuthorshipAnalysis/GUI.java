@@ -24,6 +24,7 @@ import javax.swing.table.AbstractTableModel;
 public class GUI extends javax.swing.JFrame {
 
     private MetricsTableModel mtm = new MetricsTableModel();
+    private Book currentBook;
     /**
      * Creates new form GUI
      */
@@ -53,7 +54,7 @@ public class GUI extends javax.swing.JFrame {
                 jScrollPane2.setVisible(false);
                 this.setSize(this.getSize().width - 200, this.getSize().height);
             }
-        } else {
+        } else if (value instanceof Map) {
             if(!jScrollPane2.isVisible()) {
                 jScrollPane2.setVisible(true);
                 this.setSize(this.getSize().width + 200, this.getSize().height);
@@ -161,7 +162,8 @@ public class GUI extends javax.swing.JFrame {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            if((data[rowIndex][columnIndex] instanceof Map)) {
+            if((data[rowIndex][columnIndex] instanceof Map ||
+                    data[rowIndex][columnIndex] instanceof double[])) {
                 return "+";
             }
             return data[rowIndex][columnIndex];
@@ -615,7 +617,6 @@ public class GUI extends javax.swing.JFrame {
     private void computeMetricsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeMetricsButtonActionPerformed
         String fileAddress = fileAddressTextField.getText();
         String fileType;
-        Book unknownAuthorBook;
         
         if (!fileAddress.contains(".")) {
             JOptionPane.showMessageDialog(this,
@@ -635,8 +636,8 @@ public class GUI extends javax.swing.JFrame {
             return;
         }
         try {
-            unknownAuthorBook = new Book("", "", fileAddressTextField.getText());
-            mtm.setData(unknownAuthorBook);
+            currentBook = new Book("", "", fileAddressTextField.getText());
+            mtm.setData(currentBook);
             mtm.fireTableDataChanged();
         } catch (IOException ioe) {
             JOptionPane.showMessageDialog(this,
