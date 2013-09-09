@@ -230,7 +230,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout$JLayeredPaneConstraintsDescription">
-                      <JLayeredPaneConstraints x="0" y="0" width="350" height="340" layer="0" position="-1"/>
+                      <JLayeredPaneConstraints x="0" y="0" width="350" height="320" layer="0" position="-1"/>
                     </Constraint>
                   </Constraints>
 
@@ -241,19 +241,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="authorComboBox1" alignment="1" max="32767" attributes="0"/>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace min="0" pref="110" max="32767" attributes="0"/>
-                                              <Component id="saveButton" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="newBookTitleTextField" alignment="0" max="32767" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="286" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                      <Component id="authorComboBox1" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -262,10 +250,26 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                               <Component id="viewMatchRankingsButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="newBookTitleTextField" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="263" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
+                                      <Component id="saveButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -278,13 +282,13 @@
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="authorComboBox1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="newBookTitleTextField" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="saveButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="32" max="32767" attributes="0"/>
+                              <EmptySpace pref="67" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -302,7 +306,7 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="saveButton">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Save to Author"/>
+                        <Property name="text" type="java.lang.String" value="Save Book"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveButtonActionPerformed"/>
@@ -335,9 +339,16 @@
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="knownAuthorPane">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="Upload"/>
+                      </Border>
+                    </Property>
+                  </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout$JLayeredPaneConstraintsDescription">
-                      <JLayeredPaneConstraints x="0" y="0" width="350" height="270" layer="0" position="-1"/>
+                      <JLayeredPaneConstraints x="0" y="0" width="350" height="320" layer="0" position="-1"/>
                     </Constraint>
                   </Constraints>
 
@@ -345,48 +356,39 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="newBookTitleTextField2" min="-2" pref="261" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="authorComboBox2" alignment="0" min="-2" pref="261" max="-2" attributes="0"/>
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
-                                          <Component id="saveBookMetrics" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="2" attributes="0">
+                                      <Component id="newAuthorFirstNameTextField" alignment="2" min="-2" pref="261" max="-2" attributes="0"/>
+                                      <Component id="newAuthorLastNameTextField" alignment="2" min="-2" pref="261" max="-2" attributes="0"/>
+                                      <Component id="authorComboBox2" alignment="2" min="-2" pref="261" max="-2" attributes="0"/>
+                                      <Component id="newBookTitleTextField2" alignment="2" min="-2" pref="261" max="-2" attributes="0"/>
+                                      <Component id="saveBookMetrics" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Component id="newAuthorLastNameTextField" min="-2" pref="261" max="-2" attributes="0"/>
-                                      <Component id="newAuthorFirstNameTextField" alignment="0" min="-2" pref="261" max="-2" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="47" max="32767" attributes="0"/>
+                              <EmptySpace pref="34" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="authorComboBox2" min="-2" max="-2" attributes="0"/>
@@ -396,7 +398,7 @@
                               <Component id="newAuthorFirstNameTextField" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="16" max="32767" attributes="0"/>
                               <Component id="newAuthorLastNameTextField" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
@@ -404,7 +406,7 @@
                               <Component id="newBookTitleTextField2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="saveBookMetrics" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -424,7 +426,7 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="saveBookMetrics">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Save Book Metrics"/>
+                        <Property name="text" type="java.lang.String" value="Save Book"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveBookMetricsActionPerformed"/>
