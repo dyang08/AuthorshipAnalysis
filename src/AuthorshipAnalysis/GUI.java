@@ -2,6 +2,7 @@ package AuthorshipAnalysis;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JFileChooser;
@@ -122,7 +123,7 @@ public class GUI extends javax.swing.JFrame {
                 {"Average Word Length", newBook.averageWordLength()},
                 {"Average Sentence Length", newBook.averageSentenceLength()},
                 {"Ratio Word To Sentence Length", newBook.ratioWordToSentenceLength()},
-                {"Relative Letter Frequency", newBook.relativeLetterFrequency()},
+                {"Relative Letter Frequency", fixRelativeLetterFrequancy(newBook.relativeLetterFrequency())},
                 {"Relative Letter-Pair Frequency", newBook.relativeLetterPairFrequencies()},
                 {"Vocabulary Richness", newBook.vocabularyRichness()},
                 {"Distribution of Word Lengths", newBook.distributionOfWordLengths()},
@@ -146,8 +147,7 @@ public class GUI extends javax.swing.JFrame {
                 {"Average Word Length", metrics.getAvgWordLength()},
                 {"Average Sentence Length", metrics.getAvgSentenceLength()},
                 {"Ratio Word To Sentence Length", metrics.getWordToSentenceRatio()},
-                //Needs different return type or method to correct
-                {"Relative Letter Frequency", metrics.getRelativeLetterFreq()},
+                {"Relative Letter Frequency", fixRelativeLetterFrequancy(metrics.getRelativeLetterFreq())},
                 {"Relative Letter-Pair Frequency", metrics.getRelativeLetterPairFrequencies()},
                 {"Vocabulary Richness", metrics.getVocabRichness()},
                 {"Distribution of Word Lengths", metrics.getDistributionOfWordLengths()},
@@ -189,32 +189,70 @@ public class GUI extends javax.swing.JFrame {
             }
             return data[rowIndex][columnIndex];
         }
-
-        public Object[][] fixRelativeLetterFrequancy(Double[] data) {
+        //Used to fix Return value of Relative Letter Frequancy
+        public Map fixRelativeLetterFrequancy(Double[] data) {
             if (data.length == 26) {
-                //Change this to a map
-                Object[][] newData = {{'A', data[0]}, {'B', data[1]}, {'C', data[2]},
-                    {'D', data[3]}, {'E', data[4]}, {'F', data[5]}, {'G', data[6]}, {'H', data[7]},
-                    {'I', data[8]}, {'J', data[9]}, {'K', data[10]}, {'L', data[11]}, {'M', data[12]},
-                    {'N', data[13]}, {'O', data[14]}, {'P', data[15]}, {'Q', data[16]}, {'R', data[17]},
-                    {'S', data[18]}, {'T', data[19]}, {'U', data[20]}, {'V', data[21]}, {'W', data[22]},
-                    {'X', data[23]}, {'Y', data[24]}, {'Z', data[25]},};
-
+                HashMap<String, Double> newData = new HashMap<String,Double>();
+                newData.put("A", data[0]);
+                newData.put("B", data[1]);
+                newData.put("C", data[2]);
+                newData.put("D", data[3]);
+                newData.put("E", data[4]);
+                newData.put("F", data[5]);
+                newData.put("G", data[6]);
+                newData.put("H", data[7]);
+                newData.put("I", data[8]);
+                newData.put("J", data[9]);
+                newData.put("K", data[10]);
+                newData.put("L", data[11]);
+                newData.put("M", data[12]);
+                newData.put("N", data[13]);
+                newData.put("O", data[14]);
+                newData.put("P", data[15]);
+                newData.put("Q", data[16]);
+                newData.put("R", data[17]);
+                newData.put("S", data[18]);
+                newData.put("T", data[19]);
+                newData.put("U", data[20]);
+                newData.put("V", data[21]);
+                newData.put("W", data[22]);
+                newData.put("X", data[23]);
+                newData.put("Y", data[24]);
+                newData.put("Z", data[25]);
                 return newData;
             }
             return null;
         }
-
-        public Object[][] fixRelativeLetterFrequancy(double[] data) {
+        //Used to fix Return value of Relative Letter Frequancy
+        public Map fixRelativeLetterFrequancy(double[] data) {
             if (data.length == 26) {
-                //change this to a map
-                Object[][] newData = {{'A', data[0]}, {'B', data[1]}, {'C', data[2]},
-                    {'D', data[3]}, {'E', data[4]}, {'F', data[5]}, {'G', data[6]}, {'H', data[7]},
-                    {'I', data[8]}, {'J', data[9]}, {'K', data[10]}, {'L', data[11]}, {'M', data[12]},
-                    {'N', data[13]}, {'O', data[14]}, {'P', data[15]}, {'Q', data[16]}, {'R', data[17]},
-                    {'S', data[18]}, {'T', data[19]}, {'U', data[20]}, {'V', data[21]}, {'W', data[22]},
-                    {'X', data[23]}, {'Y', data[24]}, {'Z', data[25]},};
-
+                HashMap<String, Double> newData = new HashMap<String,Double>();
+                newData.put("A", data[0]);
+                newData.put("B", data[1]);
+                newData.put("C", data[2]);
+                newData.put("D", data[3]);
+                newData.put("E", data[4]);
+                newData.put("F", data[5]);
+                newData.put("G", data[6]);
+                newData.put("H", data[7]);
+                newData.put("I", data[8]);
+                newData.put("J", data[9]);
+                newData.put("K", data[10]);
+                newData.put("L", data[11]);
+                newData.put("M", data[12]);
+                newData.put("N", data[13]);
+                newData.put("O", data[14]);
+                newData.put("P", data[15]);
+                newData.put("Q", data[16]);
+                newData.put("R", data[17]);
+                newData.put("S", data[18]);
+                newData.put("T", data[19]);
+                newData.put("U", data[20]);
+                newData.put("V", data[21]);
+                newData.put("W", data[22]);
+                newData.put("X", data[23]);
+                newData.put("Y", data[24]);
+                newData.put("Z", data[25]);
                 return newData;
             }
             return null;
