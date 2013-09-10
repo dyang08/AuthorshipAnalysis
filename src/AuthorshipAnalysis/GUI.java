@@ -286,6 +286,9 @@ public class GUI extends javax.swing.JFrame {
         resultsPopup = new javax.swing.JFrame();
         popupScrollPane = new javax.swing.JScrollPane();
         popupTable = new javax.swing.JTable();
+        loadingFrame = new javax.swing.JFrame();
+        jPanel3 = new javax.swing.JPanel();
+        displayMessageLabel = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         authorKnownChkBox = new javax.swing.JCheckBox();
@@ -350,6 +353,45 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(popupScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                 .addContainerGap())
+        );
+
+        loadingFrame.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+
+        displayMessageLabel.setText("Loading please wait");
+        displayMessageLabel.setToolTipText("");
+
+        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .add(103, 103, 103)
+                .add(displayMessageLabel)
+                .addContainerGap(112, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .add(108, 108, 108)
+                .add(displayMessageLabel)
+                .addContainerGap(125, Short.MAX_VALUE))
+        );
+
+        org.jdesktop.layout.GroupLayout loadingFrameLayout = new org.jdesktop.layout.GroupLayout(loadingFrame.getContentPane());
+        loadingFrame.getContentPane().setLayout(loadingFrameLayout);
+        loadingFrameLayout.setHorizontalGroup(
+            loadingFrameLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(loadingFrameLayout.createSequentialGroup()
+                .add(27, 27, 27)
+                .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+        loadingFrameLayout.setVerticalGroup(
+            loadingFrameLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(loadingFrameLayout.createSequentialGroup()
+                .add(22, 22, 22)
+                .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -445,7 +487,7 @@ public class GUI extends javax.swing.JFrame {
                 .add(newBookTitleTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(saveButton)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         unknownAuthorPane.setBounds(0, 0, 350, 320);
@@ -520,7 +562,7 @@ public class GUI extends javax.swing.JFrame {
                 .add(newAuthorFirstNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel4)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE)
                 .add(newAuthorLastNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jLabel6)
@@ -560,7 +602,7 @@ public class GUI extends javax.swing.JFrame {
                     .add(authorKnownChkBox))
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(145, Short.MAX_VALUE)
+                .addContainerGap(91, Short.MAX_VALUE)
                 .add(computeMetricsButton)
                 .add(118, 118, 118))
         );
@@ -577,7 +619,7 @@ public class GUI extends javax.swing.JFrame {
                     .add(browseButton))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(computeMetricsButton)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jLayeredPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 339, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -614,7 +656,7 @@ public class GUI extends javax.swing.JFrame {
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(132, 132, 132)
                         .add(searchMetricsButton)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -625,7 +667,7 @@ public class GUI extends javax.swing.JFrame {
                 .add(authorViewDataComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(98, 98, 98)
                 .add(searchMetricsButton)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(240, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("View Data", jPanel2);
@@ -790,9 +832,17 @@ public class GUI extends javax.swing.JFrame {
             return;
         }
         try {
+            //Loading screen set text for loading pane
+            displayMessageLabel.setText("Please wait while metrics are calculated...");
+            loadingFrame.pack();
+            loadingFrame.setLocationRelativeTo(this);
+            loadingFrame.setVisible(true);
+            displayMessageLabel.setVisible(true);
             currentBook = new Book("", "", fileAddressTextField.getText());
             tableModel.setData(currentBook);
             jTable1.setModel(tableModel);
+            //make loading screen invisible again
+            loadingFrame.setVisible(false);
             computeMetricsButton.setEnabled(true);
             enableUpload();
         } catch (IOException ioe) {
@@ -956,6 +1006,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JComboBox authorViewDataComboBox;
     private javax.swing.JButton browseButton;
     private javax.swing.JButton computeMetricsButton;
+    private javax.swing.JLabel displayMessageLabel;
     private javax.swing.JTextField fileAddressTextField;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
@@ -968,6 +1019,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -975,6 +1027,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JPanel knownAuthorPane;
     private java.awt.Label label1;
+    private javax.swing.JFrame loadingFrame;
     private javax.swing.JTextField newAuthorFirstNameTextField;
     private javax.swing.JTextField newAuthorLastNameTextField;
     private javax.swing.JTextField newBookTitleTextField;
