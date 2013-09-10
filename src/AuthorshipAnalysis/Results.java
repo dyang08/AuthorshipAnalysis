@@ -1,5 +1,8 @@
 package AuthorshipAnalysis;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 
 public class Results {
 
@@ -27,7 +30,7 @@ public class Results {
 	
 	//*******************Getters and Setters*********************************
 	public double getScore(){
-		return this.score;
+		return convertValue(this.score);
 	}
 	public void setScore(){
 		double x = diffNumNouns + diffNumAdjectives + diffNumVerbs+ diffNumVerbs+ diffTotalWords+ diffAvgWordLength+ diffAverageSentenceLength+ diffRatioWordToSentenceLength+
@@ -152,5 +155,19 @@ public class Results {
 	public void setDiffLexicalDensity(double diffLexicalDensity) {
 		this.diffLexicalDensity = diffLexicalDensity;
 	}
+        /**
+     * Converts a double to value of two decimal places
+     *
+     * @param value original double value
+     * @return converted double value
+     */
+    private Double convertValue(Double value) {
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.multiply(BigDecimal.valueOf(100));
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        bd = bd.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP);
+        value = bd.doubleValue();
+        return value;
+    }
 
 }

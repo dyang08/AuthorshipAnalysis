@@ -3,14 +3,21 @@ package AuthorshipAnalysis;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableColumnModelListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /*
  * To change this template, choose Tools | Templates and open the template in
@@ -113,14 +120,15 @@ public class GUI extends javax.swing.JFrame {
             data = newData;
             column = columnName;
         }
-        
+
         public void setData(ArrayList<Results> resultsList) {
-            Object[][] newData = new Object[resultsList.size()][2];
-            Object[] columnName = {"Author", "Rank"};
+            Object[][] newData = new Object[resultsList.size()][3];
+            Object[] columnName = {"Rank", "Author", "Proximity"};
             int i = 0;
             for (Results result : resultsList) {
-                newData[i][0] = result.getBookAuthor();
-                newData[i][1] = result.getScore();
+                newData[i][0] = resultsList.indexOf(result) + 1;
+                newData[i][1] = result.getBookAuthor();
+                newData[i][2] = result.getScore();
                 i++;
             }
             data = newData;
@@ -182,7 +190,11 @@ public class GUI extends javax.swing.JFrame {
 
         @Override
         public int getColumnCount() {
-            return 2;
+            if (data.length == 0) {
+                return 2;
+            } else {
+                return data[0].length;
+            }
         }
 
         @Override
@@ -204,9 +216,10 @@ public class GUI extends javax.swing.JFrame {
             return data[rowIndex][columnIndex];
         }
         //Used to fix Return value of Relative Letter Frequancy
+
         public Map fixRelativeLetterFrequancy(Double[] data) {
             if (data.length == 26) {
-                HashMap<String, Double> newData = new HashMap<String,Double>();
+                HashMap<String, Double> newData = new HashMap<String, Double>();
                 newData.put("A", data[0]);
                 newData.put("B", data[1]);
                 newData.put("C", data[2]);
@@ -238,9 +251,10 @@ public class GUI extends javax.swing.JFrame {
             return null;
         }
         //Used to fix Return value of Relative Letter Frequancy
+
         public Map fixRelativeLetterFrequancy(double[] data) {
             if (data.length == 26) {
-                HashMap<String, Double> newData = new HashMap<String,Double>();
+                HashMap<String, Double> newData = new HashMap<String, Double>();
                 newData.put("A", data[0]);
                 newData.put("B", data[1]);
                 newData.put("C", data[2]);
@@ -327,13 +341,13 @@ public class GUI extends javax.swing.JFrame {
 
         popupTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "Title 1", "Title 2", "Title 3"
             }
         ));
         popupScrollPane.setViewportView(popupTable);
@@ -490,8 +504,8 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
+        jLayeredPane1.add(unknownAuthorPane);
         unknownAuthorPane.setBounds(0, 0, 350, 320);
-        jLayeredPane1.add(unknownAuthorPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         knownAuthorPane.setBorder(javax.swing.BorderFactory.createTitledBorder("Upload"));
 
@@ -573,8 +587,8 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLayeredPane1.add(knownAuthorPane);
         knownAuthorPane.setBounds(0, 0, 350, 320);
-        jLayeredPane1.add(knownAuthorPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         computeMetricsButton.setText("Compute Metrics");
         computeMetricsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -708,10 +722,10 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 381, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 283, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 261, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -719,10 +733,9 @@ public class GUI extends javax.swing.JFrame {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(19, 19, 19)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-                            .add(jScrollPane2))
-                        .add(0, 0, Short.MAX_VALUE))
+                            .add(jScrollPane2)))
                     .add(layout.createSequentialGroup()
                         .addContainerGap()
                         .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
@@ -732,15 +745,15 @@ public class GUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fileAddressTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private void fileAddressTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
         int returnVal = jFileChooser1.showOpenDialog(jLabel1);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             fileAddressTextField.removeAll();
             File fileName = jFileChooser1.getSelectedFile();
             fileAddressTextField.setText(fileName.getPath());
         }
-    } 
-    
+    }
+
     private void authorKnownChkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorKnownChkBoxActionPerformed
         if (authorKnownChkBox.isSelected()) {
             knownAuthorPane.setVisible(true);
@@ -788,14 +801,19 @@ public class GUI extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         Comparitor bookComparison = new Comparitor(currentBook);
         bookComparison.compareMetrics();
         ArrayList<Results> results = bookComparison.getResults();
-        
+
         MetricsTableModel resultsModel = new MetricsTableModel();
         resultsModel.setData(results);
+
         popupTable.setModel(resultsModel);
+        TableColumnModel tcm = popupTable.getColumnModel();
+        tcm.getColumn(0).setPreferredWidth(1);      //id
+        
+        tcm.getColumn(2).setPreferredWidth(2);      //proximity
         resultsPopup.pack();
         resultsPopup.setLocationRelativeTo(this);
         resultsPopup.setVisible(true);
@@ -855,10 +873,10 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_computeMetricsButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        if(authorComboBox1.getSelectedItem().toString().equals("")){
-            JOptionPane.showMessageDialog(rootPane, "Please Select A Author To Apply These"+
-                    "Metrics Too", null, JOptionPane.ERROR_MESSAGE);
-        }else{
+        if (authorComboBox1.getSelectedItem().toString().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Please Select A Author To Apply These"
+                    + "Metrics Too", null, JOptionPane.ERROR_MESSAGE);
+        } else {
             currentBook.setAuthor(authorComboBox1.getSelectedItem().toString());
             currentBook.setBookTitle(newBookTitleTextField.getText());
             database.addBookMetrics(currentBook);
@@ -879,15 +897,15 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_authorComboBox2ActionPerformed
 
     private void saveBookMetricsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBookMetricsActionPerformed
-        if(authorComboBox2.getSelectedItem().toString().equals("")){
+        if (authorComboBox2.getSelectedItem().toString().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Please Select A Author.", null, JOptionPane.ERROR_MESSAGE);
-        }else{
-            if(authorComboBox2.getSelectedItem().toString().equals("New Author")){
-                currentBook.setAuthor(newAuthorFirstNameTextField.getText()+" "+
-                        newAuthorLastNameTextField.getText());
+        } else {
+            if (authorComboBox2.getSelectedItem().toString().equals("New Author")) {
+                currentBook.setAuthor(newAuthorFirstNameTextField.getText() + " "
+                        + newAuthorLastNameTextField.getText());
                 currentBook.setBookTitle(newBookTitleTextField2.getText());
                 database.addBookMetrics(currentBook);
-            }else{
+            } else {
                 currentBook.setAuthor(authorComboBox2.getSelectedItem().toString());
                 currentBook.setBookTitle(newBookTitleTextField2.getText());
                 database.addBookMetrics(currentBook);
@@ -980,7 +998,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel6.setEnabled(false);
         jLabel7.setEnabled(false);
     }
-    
+
     private void enableUpload() {
         unknownAuthorPane.setEnabled(true);
         knownAuthorPane.setEnabled(true);
@@ -998,7 +1016,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel6.setEnabled(true);
         jLabel7.setEnabled(true);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox authorComboBox1;
     private javax.swing.JComboBox authorComboBox2;

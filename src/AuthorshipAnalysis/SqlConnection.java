@@ -241,6 +241,7 @@ public final class SqlConnection {
 
         if (rs != null) {
             try {
+                authorMetrics.setAuthor(author);
                 authorMetrics.setAvgWordLength(rs.getDouble(1));
                 authorMetrics.setAvgSentenceLength(rs.getDouble(2));
                 authorMetrics.setWordToSentenceRatio(rs.getDouble(3));
