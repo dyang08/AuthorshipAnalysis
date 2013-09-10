@@ -833,16 +833,16 @@ public class GUI extends javax.swing.JFrame {
         }
         try {
             //Loading screen set text for loading pane
-            displayMessageLabel.setText("Please wait while metrics are calculated...");
-            loadingFrame.pack();
-            loadingFrame.setLocationRelativeTo(this);
-            loadingFrame.setVisible(true);
-            displayMessageLabel.setVisible(true);
+            //displayMessageLabel.setText("Please wait while metrics are calculated...");
+            //loadingFrame.pack();
+            //loadingFrame.setLocationRelativeTo(this);
+            //loadingFrame.setVisible(true);
+            //displayMessageLabel.setVisible(true);
             currentBook = new Book("", "", fileAddressTextField.getText());
             tableModel.setData(currentBook);
             jTable1.setModel(tableModel);
             //make loading screen invisible again
-            loadingFrame.setVisible(false);
+            //loadingFrame.setVisible(false);
             computeMetricsButton.setEnabled(true);
             enableUpload();
         } catch (IOException ioe) {
