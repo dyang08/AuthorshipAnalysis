@@ -121,6 +121,7 @@ public class GUI extends javax.swing.JFrame {
             for (Results result : resultsList) {
                 newData[i][0] = result.getBookAuthor();
                 newData[i][1] = result.getScore();
+                i++;
             }
             data = newData;
             column = columnName;

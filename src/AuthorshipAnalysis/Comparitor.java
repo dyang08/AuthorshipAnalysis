@@ -72,6 +72,7 @@ public class Comparitor {
                     - newBook.ratioAdjectivesToNounUsage()));
             r.setDiffLexicalDensity(Math.abs(a.getLexicalDensity()
                     - newBook.simpleLexicalDensity()));
+            r.setBookAuthor(a.getAuthor());
             // ------------------------------------------Method
             // block-----------------------------------------------------
             double sum = 0;
@@ -128,7 +129,6 @@ public class Comparitor {
             sum = 0;
             // go through first hashmap
             for (int key : newBook.distributionOfWordLengths().keySet()) {
-                keyList2.add(key);
                 if (a.getDistributionOfWordLengths().containsKey(key)) {
                     sum += Math.abs(newBook.distributionOfWordLengths()
                             .get(key)
@@ -167,15 +167,17 @@ public class Comparitor {
         ArrayList<Results> temp = new ArrayList<>();
         int size = results.size();
         while (size > 0) {
+            min = Double.POSITIVE_INFINITY;
             for (int i = 0; i < size; i++) {
                 if (results.get(i).getScore() < min) {
                     min = results.get(i).getScore();
                     index = i;
                 }
             }
-            results.remove(index);
-            temp.add(results.get(index));
-            size--;
+            int j = index;
+        temp.add(results.get(index));
+        results.remove(index);
+        size--;
         }
         this.results = temp;
     }
