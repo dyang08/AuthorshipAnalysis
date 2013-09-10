@@ -840,6 +840,7 @@ public class GUI extends javax.swing.JFrame {
             }else{
                 currentBook.setAuthor(authorComboBox2.getSelectedItem().toString());
                 currentBook.setBookTitle(newBookTitleTextField2.getText());
+                database.addBookMetrics(currentBook);
             }
         }
     }//GEN-LAST:event_saveBookMetricsActionPerformed
